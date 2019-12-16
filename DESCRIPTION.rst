@@ -1,22 +1,19 @@
 
-**xlines** | Count the number of lines of text
-------------------------------------------------
+**versionpro** | Version nanagenent for Python3 Projects
+----------------------------------------------------------
 
-PACKAGE:  xlines
+PACKAGE: versionpro 
 
 
-**xlines**:
+**versionpro**:
 
     * Python3 commandline utility.
-    * Essential software developer tools
+    * Essential software developer proejct tool
 
 **Features**:
 
-    * Count lines in specific file objects provided as parameters
-    * Alternatively provide a parent directory (project directory):
-
-        * xlines sums all lines of text in all objects in subdirs.
-        * outputs filename plus number of lines 
-
-    * Exclusion list of File extensions not counted
+    * Called by deployment logic
+    * Increments minor revision automatically 
+    * "Hard Set" version label override
+    * Dryrun mode 
     * User customizable
