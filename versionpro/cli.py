@@ -16,6 +16,7 @@ import subprocess
 from libtools import stdout_message, logd
 from versionpro import Colors
 from versionpro.config import script_config
+from versionpro.about import about_object
 from versionpro import __version__, PACKAGE
 
 c = Colors()
@@ -135,6 +136,8 @@ def help_menu():
         ''' + bd + '''-D''' + rst + ''', ''' + bd + '''--debug''' + rst + ''': Debug mode, verbose output.
 
         ''' + bd + '''-h''' + rst + ''', ''' + bd + '''--help''' + rst + ''': Print this help menu
+
+        ''' + bd + '''-V''' + rst + ''', ''' + bd + '''--version''' + rst + ''': Print package version and copyright info.
     '''
     print(menu)
     return True
@@ -186,6 +189,14 @@ def package_name(artifact):
         if line.startswith('PACKAGE'):
             return line.split(':')[1].strip()
     return None
+
+
+def package_version():
+    """
+    Prints package version and requisite PACKAGE info
+    """
+    print(about_object)
+    sys.exit(exit_codes['EX_OK']['Code'])
 
 
 def pypi_registry(package_name):
@@ -365,9 +376,13 @@ def main():
         stdout_message(str(e), 'ERROR')
         return exit_codes['E_BADARG']['Code']
 
-    if args.help or len(sys.argv) == 1:
+    if (args.help or len(sys.argv) == 1) and not args.version:
         help_menu()
         return 0
+
+    elif args.version:
+        package_version()
+        return 1
 
     elif args.dryrun and args.update:
         stdout_message('Option --dryrun and --update cannot be used together.', prefix='FAIL')
