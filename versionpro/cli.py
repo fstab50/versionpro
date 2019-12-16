@@ -208,13 +208,18 @@ def pypi_registry(package_name):
         exists in pypi registry             ||
 
     """
-    cmd = 'pip3 show {} 2>/dev/null'.format(package_name)
+    installed_cmd = 'pip3 show {} 2>/dev/null'.format(package_name)
+    search_cmd = 'pip3 search {} 2>/dev/null'.format(package_name)
 
     try:
-        r = subprocess.getoutput(cmd)
-        parsed = r.split('\n')
-        raw = [x for x in parsed if x.startswith('Version')][0]
-        return raw.split(':')[1].strip()
+        if subprocess.getoutput(installed_cmd):
+            r = subprocess.getoutput(installed_cmd)
+            parsed = r.split('\n')
+            raw = [x for x in parsed if x.startswith('Version')][0]
+            return raw.split(':')[1].strip()
+        else:
+            r = subprocess.getoutput(search_cmd)
+            return r.split('-')[0].split('(')[1].split(')')[0].strip()
     except Exception:
         return 'N/A'
 
