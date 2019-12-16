@@ -10,7 +10,7 @@ Python 3 utility for managing Python project version labels.
     * Easily imported into any Code project
     * Conveniently called by build logic to update version prior to deployment
 
-**Version**: 0.3.2
+**Version**: 0.3.3
 
 * * *
 
