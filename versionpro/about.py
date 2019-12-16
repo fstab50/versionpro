@@ -14,9 +14,14 @@ import datetime
 from libtools.colors import Colors
 from versionpro import PACKAGE, __version__
 
+c = Colors()
+
+# colors
+bdwt = c.BOLD + c.BRIGHT_WHITE
+rst = c.RESET
 
 # url formatting
-url_sc = Colors.URL + 'https://github.com/fstab50/versionpro' + Colors.RESET
+url_sc = c.URL + 'https://github.com/fstab50/versionpro' + c.RESET
 
 # copyright range thru current calendar year
 current_year = datetime.datetime.today().year
@@ -24,10 +29,10 @@ copyright_range = '2017-' + str(current_year)
 
 # python version number header
 python_version = sys.version.split(' ')[0]
-python_header = 'python'.title() + Colors.RESET + ' ' + python_version
+python_header = 'python'.title() + c.RESET + ' ' + bdwt + python_version + rst
 
 # formatted package header
-package_name = Colors.BOLD + PACKAGE + Colors.RESET
+package_name = c.BOLD + PACKAGE + c.RESET
 
 
 # --- package about statement -------------------------------------------------
@@ -39,15 +44,15 @@ title_separator = (
     )
 
 package_header = (
-    '\n\t\t' + Colors.CYAN + PACKAGE + Colors.RESET + ' version: ' + Colors.WHITE +
-    Colors.BOLD + __version__ + Colors.RESET + '  |  ' + python_header + '\n\n'
+    '\n\t\t' + c.CYAN + PACKAGE + c.RESET + ' version: ' + c.WHITE +
+    c.BOLD + __version__ + c.RESET + '  |  ' + python_header + '\n\n'
     )
 
-copyright = Colors.LT2GRAY + """
+copyright = c.LT2GRAY + """
     Copyright """ + copyright_range + """, Blake Huber.  This program distributed under
-    MIT LICENSE.  Copyright notice must remain with derivative works.""" + Colors.RESET + """
+    MIT LICENSE.  Copyright notice must remain with derivative works.""" + c.RESET + """
     __________________________________________________________________
-        """ + Colors.RESET
+        """ + c.RESET
 
 about_object = """
 """ + title_separator + """
