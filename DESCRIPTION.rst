@@ -1,8 +1,8 @@
 
-**versionpro** | Version nanagenent for Python3 Projects
-----------------------------------------------------------
+**versionpro** | Version Management Utility for Python3 Projects
+------------------------------------------------------------------
 
-PACKAGE: versionpro 
+PACKAGE: versionpro
 
 
 **versionpro**:
@@ -13,7 +13,7 @@ PACKAGE: versionpro
 **Features**:
 
     * Called by deployment logic
-    * Increments minor revision automatically 
+    * Increments minor revision automatically
     * "Hard Set" version label override
-    * Dryrun mode 
+    * Dryrun mode
     * User customizable
