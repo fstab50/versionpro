@@ -74,7 +74,7 @@ $  sudo -H pip3 install versionpro
 * * *
 ## Use
 
-**versionpro** automatically extracts the current proeject name from either DESCRIPTION.rst or MANIFEST.ln artifacts.
+**versionpro** automatically extracts the current project name from either DESCRIPTION.rst or MANIFEST.ln artifacts.
 
 
 1. Increment project version:
@@ -85,15 +85,16 @@ $  sudo -H pip3 install versionpro
 
 2. Hard Set project version::
 
-    ```python
-    >>> start, end = sp.set_endpoints(duration=10)
+    ```bash
+    $ versionpro  --update --set-version 1.8.1
     ```
 
 3. Utilise pypi version instead of project version:
 
-    ```python
-    >>> prices = sp.generate_pricedata(regions=[eu-west-1])
+    ```bash
+    $ versionpro  --update --pypi
     ```
+
 
 
 --
