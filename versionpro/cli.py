@@ -14,8 +14,8 @@ import argparse
 import inspect
 import subprocess
 from libtools import stdout_message, logd
-from colors import Colors
-from config import script_config
+from versionpro import Colors
+from versionpro.config import script_config
 
 c = Colors()
 
