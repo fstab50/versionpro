@@ -16,11 +16,10 @@ import subprocess
 from libtools import stdout_message, logd
 from versionpro import Colors
 from versionpro.config import script_config
-from versionpro import __version__
+from versionpro import __version__, PACKAGE
 
 c = Colors()
 
-PACKAGE = 'versionpro'
 
 # global logger
 module = os.path.basename(__file__)
@@ -97,6 +96,12 @@ def help_menu():
         Command line parameter options (Help Menu)
 
     """
+    bcy = c.BRIGHT_CYAN
+    rst = c.RESET
+    lbct = bcy + '[' + rst
+    rbct = bcy + ']' + rst
+    ctr = bcy + '|' + rst
+
     menu = '''
                     ''' + bd + PACKAGE + rst + ''' help contents
 
@@ -108,7 +113,7 @@ def help_menu():
 
   ''' + bd + '''OPTIONS''' + rst + '''
 
-        $ python3 ''' + act + module + rst + ''' --update [--set-version <VERSION>]
+        $ ''' + act + PACKAGE + rst + ' ' + lbct + ' --update ' + ctr + ' --dryrun ' + rbct + '  ' + lbct + ''' --set-version <value> ''' + rbct + '''
 
                          -u, --update
                         [-p, --pypi  ]
