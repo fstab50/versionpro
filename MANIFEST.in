@@ -1,0 +1,18 @@
+# include
+include README.rst
+include DESCRIPTION.rst
+include LICENSE
+include bash/xlines-completion.bash
+include config/exclusions.list
+include config/directories.list
+
+# exclude
+exclude .gitignore
+exclude .coverage
+exclude pytest.ini
+exclude readthedocs.yml
+exclude .environment.yml
+exclude .rtd-environment.yml
+recursive-exclude .git *
+recursive-exclude *.egg-info *
+recursive-exclude tests *
