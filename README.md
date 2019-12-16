@@ -1,2 +1,139 @@
-# versionpro
-Python project automated version management
+<a name="top"></a>
+* * *
+# Version Pro
+* * *
+
+## Summary
+
+Python 3 utility for managing Python project version labels.  
+
+    * Easily imported into any Code project
+    * Conveniently called by build logic to update version prior to deployment
+
+**Version**: 0.3.2
+
+* * *
+
+## Contents
+
+* [**Dependencies**](#dependencies)
+
+* [**Installation**](#installation)
+
+* [**Use**](#use)
+    * [**Spotlib Library**](#use)
+    * [**Spotcli Helper Application**](#versionpro-help)
+        * [Options](#versionpro-help)
+        * [Data Retrieval -- 1 AWS Region](#versionpro-1region)
+        * [Data Retrieval -- Multiple AWS Regions](#versionpro-multiregion)
+
+* [**IAM Permissions**](#iam-permissions)
+
+* [**Author & Copyright**](#author--copyright)
+
+* [**License**](#license)
+
+* [**Disclaimer**](#disclaimer)
+
+--
+
+[back to the top](#top)
+
+* * *
+
+## Dependencies
+
+[versionpro](https://github.com/fstab50/versionpro) requires:
+
+* [Python 3.6+](https://docs.python.org/3/).
+
+* [Libtools](https://github.com/fstab50/libtools) General utilities library
+
+
+[back to the top](#top)
+
+* * *
+## Installation
+
+**versionpro** may be installed on Linux via [pip, python package installer](https://pypi.org/project/pip) in one of two methods:
+
+To install **versionpro** for a single user:
+
+```
+$  pip3 install versionpro --user
+```
+
+To install **versionpro** for all users (Linux):
+
+```
+$  sudo -H pip3 install versionpro
+```
+
+[back to the top](#top)
+
+* * *
+## Use
+
+**versionpro** automatically extracts the current proeject name from either DESCRIPTION.rst or MANIFEST.ln artifacts.
+
+
+1. Increment project version:
+
+    ```bash
+    $ versionpro  --update
+    ```
+
+2. Hard Set project version::
+
+    ```python
+    >>> start, end = sp.set_endpoints(duration=10)
+    ```
+
+3. Utilise pypi version instead of project version:
+
+    ```python
+    >>> prices = sp.generate_pricedata(regions=[eu-west-1])
+    ```
+
+
+--
+
+[back to the top](#top)
+
+* * *
+
+## Author & Copyright
+
+All works contained herein copyrighted via below author unless work is explicitly noted by an alternate author.
+
+* Copyright Blake Huber, All Rights Reserved.
+
+[back to the top](#top)
+
+* * *
+
+## License
+
+* Software contained in this repo is licensed under the [license agreement](./LICENSE.md).  You may display the license and copyright information by issuing the following command:
+
+```
+$ versionpro --version
+```
+
+<p align="center">
+    <a href="http://images.awspros.world/versionpro/version-copyright.png" target="_blank"><img src="./assets/version-copyright.png">
+</p>
+
+[back to the top](#top)
+
+* * *
+
+## Disclaimer
+
+*Code is provided "as is". No liability is assumed by either the code's originating author nor this repo's owner for their use at AWS or any other facility. Furthermore, running function code at AWS may incur monetary charges; in some cases, charges may be substantial. Charges are the sole responsibility of the account holder executing code obtained from this library.*
+
+Additional terms may be found in the complete [license agreement](./LICENSE.md).
+
+[back to the top](#top)
+
+* * *
