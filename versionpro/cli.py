@@ -16,14 +16,16 @@ import subprocess
 from libtools import stdout_message, logd
 from versionpro import Colors
 from versionpro.config import script_config
+from versionpro import __version__
 
 c = Colors()
 
+PACKAGE = 'versionpro'
+
 # global logger
-script_version = '1.2'
 module = os.path.basename(__file__)
 logd.local_config = script_config
-logger = logd.getLogger(script_version)
+logger = logd.getLogger(__version__)
 
 # formatting
 act = c.ORANGE                  # accent highlight (bright orange)
@@ -96,7 +98,7 @@ def help_menu():
 
     """
     menu = '''
-                    ''' + bd + module + rst + ''' help contents
+                    ''' + bd + PACKAGE + rst + ''' help contents
 
   ''' + bd + '''DESCRIPTION''' + rst + '''
 
