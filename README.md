@@ -21,13 +21,6 @@ Python 3 utility for managing Python project version labels.
 * [**Installation**](#installation)
 
 * [**Use**](#use)
-    * [**Spotlib Library**](#use)
-    * [**Spotcli Helper Application**](#versionpro-help)
-        * [Options](#versionpro-help)
-        * [Data Retrieval -- 1 AWS Region](#versionpro-1region)
-        * [Data Retrieval -- Multiple AWS Regions](#versionpro-multiregion)
-
-* [**IAM Permissions**](#iam-permissions)
 
 * [**Author & Copyright**](#author--copyright)
 
@@ -94,8 +87,6 @@ $  sudo -H pip3 install versionpro
     ```bash
     $ versionpro  --update --pypi
     ```
-
-
 
 --
 
