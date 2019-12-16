@@ -200,7 +200,7 @@ def pypi_registry(package_name):
         raw = [x for x in parsed if x.startswith('Version')][0]
         return raw.split(':')[1].strip()
     except Exception:
-        return None
+        return 'N/A'
 
 
 def update_signature(version, path):
