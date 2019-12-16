@@ -1,0 +1,6 @@
+pandoc
+pkginfo
+libtools
+setuptools
+twine
+ipdb
