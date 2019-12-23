@@ -243,7 +243,7 @@ function _versionpro_completions(){
             ##  not already present on the command line
             ##
             declare -a horsemen
-            horsemen=( '--pypi' '--debug' )
+            horsemen=( '--debug' '--update' )
             subcommands=$(_parse_compwords COMP_WORDS[@] horsemen[@])
             numargs=$(_numargs "$subcommands")
 
@@ -261,7 +261,7 @@ function _versionpro_completions(){
             ##  not already present on the command line
             ##
             declare -a horsemen
-            horsemen=(  '--set-version' '--debug' )
+            horsemen=(  '--debug' '--update' )
             subcommands=$(_parse_compwords COMP_WORDS[@] horsemen[@])
             numargs=$(_numargs "$subcommands")
 
