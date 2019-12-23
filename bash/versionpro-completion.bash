@@ -79,7 +79,7 @@ function _complete_4_horsemen_subcommands(){
 }
 
 
-function _complete_xlines_commands(){
+function _complete_versionpro_commands(){
     local cmds="$1"
     local split='6'       # times to split screen width
     local ct="0"
@@ -93,7 +93,7 @@ function _complete_xlines_commands(){
     COMPREPLY=( "${formatted_cmds[@]}")
     return 0
     #
-    # <-- end function _complete_xlines_commands -->
+    # <-- end function _complete_versionpro_commands -->
 }
 
 
@@ -237,7 +237,43 @@ function _versionpro_completions(){
             return 0
             ;;
 
-        'xlin' | 'xline' | 'xlines')
+        '--pypi')
+            ##
+            ##  Return compreply with any of the 5 comp_words that
+            ##  not already present on the command line
+            ##
+            declare -a horsemen
+            horsemen=( '--pypi' '--debug' )
+            subcommands=$(_parse_compwords COMP_WORDS[@] horsemen[@])
+            numargs=$(_numargs "$subcommands")
+
+            if [ "$cur" = "" ] || [ "$cur" = "-" ] || [ "$cur" = "--" ] && (( "$numargs" > 2 )); then
+                _complete_4_horsemen_subcommands "${subcommands}"
+            else
+                COMPREPLY=( $(compgen -W "${subcommands}" -- ${cur}) )
+            fi
+            return 0
+            ;;
+
+        '--set-version')
+            ##
+            ##  Return compreply with any of the 5 comp_words that
+            ##  not already present on the command line
+            ##
+            declare -a horsemen
+            horsemen=(  '--set-version' '--debug' )
+            subcommands=$(_parse_compwords COMP_WORDS[@] horsemen[@])
+            numargs=$(_numargs "$subcommands")
+
+            if [ "$cur" = "" ] || [ "$cur" = "-" ] || [ "$cur" = "--" ] && (( "$numargs" > 2 )); then
+                _complete_4_horsemen_subcommands "${subcommands}"
+            else
+                COMPREPLY=( $(compgen -W "${subcommands}" -- ${cur}) )
+            fi
+            return 0
+            ;;
+
+        'version' | 'versionp' | 'versionpr')
             COMPREPLY=( $(compgen -W "${commands} ${options}" -- ${cur}) )
             return 0
             ;;
@@ -251,44 +287,9 @@ function _versionpro_completions(){
             ;;
 
         '--update')
-
-            case "${cur}" in
-
-                '--pypi')
-                    ##
-                    ##  Return compreply with any of the 5 comp_words that
-                    ##  not already present on the command line
-                    ##
-                    declare -a horsemen
-                    horsemen=( '--pypi' '--debug' )
-                    subcommands=$(_parse_compwords COMP_WORDS[@] horsemen[@])
-                    numargs=$(_numargs "$subcommands")
-
-                    if [ "$cur" = "" ] || [ "$cur" = "-" ] || [ "$cur" = "--" ] && (( "$numargs" > 2 )); then
-                        _complete_4_horsemen_subcommands "${subcommands}"
-                    else
-                        COMPREPLY=( $(compgen -W "${subcommands}" -- ${cur}) )
-                    fi
-                    return 0
-                    ;;
-
-                '--set-version')
-                    ##
-                    ##  Return compreply with any of the 5 comp_words that
-                    ##  not already present on the command line
-                    ##
-                    declare -a horsemen
-                    horsemen=(  '--set-version' '--debug' )
-                    subcommands=$(_parse_compwords COMP_WORDS[@] horsemen[@])
-                    numargs=$(_numargs "$subcommands")
-
-                    if [ "$cur" = "" ] || [ "$cur" = "-" ] || [ "$cur" = "--" ] && (( "$numargs" > 2 )); then
-                        _complete_4_horsemen_subcommands "${subcommands}"
-                    else
-                        COMPREPLY=( $(compgen -W "${subcommands}" -- ${cur}) )
-                    fi
-                    return 0
-                    ;;
+            _complete_versionpro_commands "--pypi --set-version --debug"
+            return 0
+            ;;
 
         'versionpro')
             if [ "$cur" = "" ] || [ "$cur" = "-" ] || [ "$cur" = "--" ]; then
