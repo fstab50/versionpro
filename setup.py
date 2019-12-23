@@ -37,6 +37,7 @@ requires = [
 
 _project = 'versionpro'
 _root = os.path.abspath(os.path.dirname(__file__))
+_comp_fname = 'versionpro-completion.bash'
 
 
 def _root_user():
@@ -111,31 +112,80 @@ def user_home():
         raise e
 
 
-setup(
-    name=_project,
-    version=versionpro.__version__,
-    description='Version Managmement Utility for Python3 Projects',
-    long_description=read('DESCRIPTION.rst'),
-    url='https://github.com/fstab50/versionpro',
-    author=versionpro.__author__,
-    author_email=versionpro.__email__,
-    license='GPL-3.0',
-    classifiers=[
-        'Topic :: Software Development :: Libraries :: Python Modules',
-        'Development Status :: 4 - Beta',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
-        'Operating System :: POSIX :: Linux',
-    ],
-    keywords='CI/CD continuous integration continuous deployment version management',
-    packages=find_packages(exclude=['assets', 'docs', 'reports', 'scripts', 'tests']),
-    install_requires=requires,
-    python_requires='>=3.6, <4',
-    entry_points={
-        'console_scripts': [
-            'versionpro=versionpro.cli:main'
-        ]
-    },
-    zip_safe=False
-)
+# branch install based on user priviledge level
+
+if _root_user():
+
+    setup(
+        name=_project,
+        version=versionpro.__version__,
+        description='Version Managmement Utility for Python3 Projects',
+        long_description=read('DESCRIPTION.rst'),
+        url='https://github.com/fstab50/versionpro',
+        author=versionpro.__author__,
+        author_email=versionpro.__email__,
+        license='GPL-3.0',
+        classifiers=[
+            'Topic :: Software Development :: Libraries :: Python Modules',
+            'Development Status :: 4 - Beta',
+            'Programming Language :: Python :: 3.6',
+            'Programming Language :: Python :: 3.7',
+            'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+            'Operating System :: POSIX :: Linux',
+        ],
+        keywords='CI/CD continuous integration continuous deployment version management',
+        packages=find_packages(exclude=['assets', 'docs', 'reports', 'scripts', 'tests']),
+        install_requires=requires,
+        python_requires='>=3.6, <4',
+        data_files=[
+            (
+                os.path.join('/etc/bash_completion.d'),
+                [os.path.join('bash', _comp_fname)]
+            )
+        ],
+        entry_points={
+            'console_scripts': [
+                'versionpro=versionpro.cli:main'
+            ]
+        },
+        zip_safe=False
+    )
+
+else:
+
+    # non-priviledged user
+
+    setup(
+        name=_project,
+        version=versionpro.__version__,
+        description='Version Managmement Utility for Python3 Projects',
+        long_description=read('DESCRIPTION.rst'),
+        url='https://github.com/fstab50/versionpro',
+        author=versionpro.__author__,
+        author_email=versionpro.__email__,
+        license='GPL-3.0',
+        classifiers=[
+            'Topic :: Software Development :: Libraries :: Python Modules',
+            'Development Status :: 4 - Beta',
+            'Programming Language :: Python :: 3.6',
+            'Programming Language :: Python :: 3.7',
+            'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+            'Operating System :: POSIX :: Linux',
+        ],
+        keywords='CI/CD continuous integration continuous deployment version management',
+        packages=find_packages(exclude=['assets', 'docs', 'reports', 'scripts', 'tests']),
+        install_requires=requires,
+        python_requires='>=3.6, <4',
+        data_files=[
+            (
+                os.path.join(user_home(), '.bash_completion.d'),
+                [os.path.join('bash', _comp_fname)]
+            )
+        ],
+        entry_points={
+            'console_scripts': [
+                'versionpro=versionpro.cli:main'
+            ]
+        },
+        zip_safe=False
+    )
