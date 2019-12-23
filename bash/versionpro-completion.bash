@@ -176,59 +176,16 @@ function _versionpro_completions(){
 
     # initialize vars
     COMPREPLY=()
-    numoptions=0
     numargs="${#COMP_WORDS[@]}"
 
     options='--help --dryrun --debug --version'
     commands=' --update --set-version --pypi'
 
 
-    if [[ "$(echo "${COMP_WORDS[@]}" | grep '\-\-sum' 2>/dev/null)" ]]; then
-        case "${cur}" in
-            '-' | '--')
-                ##
-                ##  Return compreply with any of the 5 comp_words that
-                ##  not already present on the command line
-                ##
-                declare -a horsemen
-                horsemen=(  '--multiprocess' '--no-whitespace' '--sum' '--debug' )
-                subcommands=$(_parse_compwords COMP_WORDS[@] horsemen[@])
-                numargs=$(_numargs "$subcommands")
-
-                if [ "$cur" = "" ] || [ "$cur" = "-" ] || [ "$cur" = "--" ] && (( "$numargs" > 2 )); then
-                    _complete_4_horsemen_subcommands "${subcommands}"
-                else
-                    COMPREPLY=( $(compgen -W "${subcommands}" -- ${cur}) )
-                fi
-                return 0
-            ;;
-
-            '--d'*)
-                COMPREPLY=( $(compgen -W '--debug' -- ${cur}) )
-                return 0
-                ;;
-
-            '--m'*)
-                COMPREPLY=( $(compgen -W '--multiprocess' -- ${cur}) )
-                return 0
-                ;;
-
-            '--n'*)
-                COMPREPLY=( $(compgen -W '--no-whitespace' -- ${cur}) )
-                return 0
-                ;;
-        esac
-    fi
-
     case "${cur}" in
 
         '--h'*)
             COMPREPLY=( $(compgen -W '--help' -- ${cur}) )
-            return 0
-            ;;
-
-        '--d'*)
-            COMPREPLY=( $(compgen -W '--debug' -- ${cur}) )
             return 0
             ;;
 
