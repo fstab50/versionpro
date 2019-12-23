@@ -138,7 +138,7 @@ function _versionpro_completions(){
     numargs="${#COMP_WORDS[@]}"
 
     options='--help --dryrun --debug --version'
-    commands=' --update --set-version --pypi'
+    commands=' --update --force-set --pypi'
 
 
     case "${cur}" in
