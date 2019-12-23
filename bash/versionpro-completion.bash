@@ -213,7 +213,7 @@ function _versionpro_completions(){
             ##  not already present on the command line
             ##
             declare -a horsemen
-            horsemen=( '--debug' '--pypi' '--version-set')
+            horsemen=( '--debug' '--pypi' '--set-version-at' )
             subcommands=$(_parse_compwords COMP_WORDS[@] horsemen[@])
             numargs=$(_numargs "$subcommands")
 
@@ -244,7 +244,7 @@ function _versionpro_completions(){
             return 0
             ;;
 
-        '--version-set')
+        '--set-version-at')
             ##
             ##  Return compreply with any of the 5 comp_words that
             ##  not already present on the command line
