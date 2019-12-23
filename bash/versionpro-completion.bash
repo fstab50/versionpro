@@ -23,26 +23,6 @@
 # SOFTWARE.
 
 
-function _filter_objects(){
-    ##
-    ##  returns file objects in pwd; minus exception list members
-    ##
-    declare -a container fcollection
-
-    mapfile -t fcollection < <(ls $PWD)
-
-    for object in "${fcollection[@]}"; do
-        if [[ $(echo "${exceptions[@]}" | grep $object) ]]; then
-            continue
-        else
-            container=( "${container[@]}" "$object" )
-        fi
-    done
-    echo "${container[@]}"
-    return 0
-}
-
-
 function _complete_4_horsemen_commands(){
     local cmds="$1"
     local split='5'       # times to split screen width
@@ -135,27 +115,6 @@ function _parse_compwords(){
     printf -- '%s\n' "${missing_words[@]}"
     #
     # <-- end function _parse_compwords -->
-}
-
-
-function compword_autofilter(){
-    ##
-    ##  Return compreply with any of the comp_words that
-    ##  not already present on the command line
-    ##
-
-    declare -a compwords=("${!1}")
-    declare -a horsemen
-
-    horsemen=(  '--multiprocess' '--no-whitespace' '--sum' )
-    subcommands=$(_parse_compwords compwords[@] horsemen[@])
-    numargs=$(_numargs "$subcommands")
-    if [ "$cur" = "" ] || [ "$cur" = "-" ] || [ "$cur" = "--" ] && (( "$numargs" > 2 )); then
-        _complete_4_horsemen_subcommands "${subcommands}"
-    else
-        COMPREPLY=( $(compgen -W "${subcommands}" -- ${cur}) )
-    fi
-    return 0
 }
 
 
