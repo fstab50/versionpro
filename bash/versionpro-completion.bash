@@ -148,6 +148,26 @@ function _versionpro_completions(){
             return 0
             ;;
 
+        '--dr'*)
+            COMPREPLY=( $(compgen -W '--dryrun' -- ${cur}) )
+            return 0
+            ;;
+
+        '--p'*)
+            COMPREPLY=( $(compgen -W '--pypi' -- ${cur}) )
+            return 0
+            ;;
+
+        '--f'*)
+            COMPREPLY=( $(compgen -W '--force-set' -- ${cur}) )
+            return 0
+            ;;
+
+        '--u'*)
+            COMPREPLY=( $(compgen -W '--update' -- ${cur}) )
+            return 0
+            ;;
+
         '--v'*)
             COMPREPLY=( $(compgen -W '--version' -- ${cur}) )
             return 0
