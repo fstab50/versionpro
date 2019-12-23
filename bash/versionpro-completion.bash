@@ -179,8 +179,8 @@ function _versionpro_completions(){
     numoptions=0
     numargs="${#COMP_WORDS[@]}"
 
-    options=' --help --exclusions --configure --version'
-    commands=' --debug --multiprocess --sum --no-whitespace'
+    options='--help --dryrun --debug --version'
+    commands=' --update --set-version --pypi'
 
 
     if [[ "$(echo "${COMP_WORDS[@]}" | grep '\-\-sum' 2>/dev/null)" ]]; then
@@ -219,14 +219,7 @@ function _versionpro_completions(){
                 ;;
         esac
     fi
-    case "${initcmd}" in
 
-        '--sum')
-            _pathopt
-            return 0
-            ;;
-
-    esac
     case "${cur}" in
 
         '--h'*)
@@ -234,33 +227,8 @@ function _versionpro_completions(){
             return 0
             ;;
 
-        '--c'*)
-            COMPREPLY=( $(compgen -W '--configure' -- ${cur}) )
-            return 0
-            ;;
-
         '--d'*)
             COMPREPLY=( $(compgen -W '--debug' -- ${cur}) )
-            return 0
-            ;;
-
-        '--e'*)
-            COMPREPLY=( $(compgen -W '--exclusions' -- ${cur}) )
-            return 0
-            ;;
-
-        '--m'*)
-            COMPREPLY=( $(compgen -W '--multiprocess' -- ${cur}) )
-            return 0
-            ;;
-
-        '--n'*)
-            COMPREPLY=( $(compgen -W '--no-whitespace' -- ${cur}) )
-            return 0
-            ;;
-
-        '--s'*)
-            COMPREPLY=( $(compgen -W '--sum' -- ${cur}) )
             return 0
             ;;
 
@@ -278,49 +246,57 @@ function _versionpro_completions(){
 
     case "${prev}" in
 
-        '--help' | '--exclusions' | '--version')
+        '--help' | '--version')
             return 0
             ;;
 
-        '--configure')
-            return 0
-            ;;
+        '--update')
 
-        '--sum')
-            _pathopt
-            return 0
-            ;;
+            case "${cur}" in
 
-        '--multiprocess' | '--no-whitespace' | '--debug')
-            ##
-            ##  Return compreply with any of the 5 comp_words that
-            ##  not already present on the command line
-            ##
-            declare -a horsemen
-            horsemen=(  '--multiprocess' '--no-whitespace' '--sum' '--debug' )
-            subcommands=$(_parse_compwords COMP_WORDS[@] horsemen[@])
-            numargs=$(_numargs "$subcommands")
+                '--pypi')
+                    ##
+                    ##  Return compreply with any of the 5 comp_words that
+                    ##  not already present on the command line
+                    ##
+                    declare -a horsemen
+                    horsemen=( '--pypi' '--debug' )
+                    subcommands=$(_parse_compwords COMP_WORDS[@] horsemen[@])
+                    numargs=$(_numargs "$subcommands")
 
-            if [ "$cur" = "" ] || [ "$cur" = "-" ] || [ "$cur" = "--" ] && (( "$numargs" > 2 )); then
-                _complete_4_horsemen_subcommands "${subcommands}"
-            else
-                COMPREPLY=( $(compgen -W "${subcommands}" -- ${cur}) )
-            fi
-            return 0
-            ;;
+                    if [ "$cur" = "" ] || [ "$cur" = "-" ] || [ "$cur" = "--" ] && (( "$numargs" > 2 )); then
+                        _complete_4_horsemen_subcommands "${subcommands}"
+                    else
+                        COMPREPLY=( $(compgen -W "${subcommands}" -- ${cur}) )
+                    fi
+                    return 0
+                    ;;
 
-        'xlines')
+                '--set-version')
+                    ##
+                    ##  Return compreply with any of the 5 comp_words that
+                    ##  not already present on the command line
+                    ##
+                    declare -a horsemen
+                    horsemen=(  '--set-version' '--debug' )
+                    subcommands=$(_parse_compwords COMP_WORDS[@] horsemen[@])
+                    numargs=$(_numargs "$subcommands")
+
+                    if [ "$cur" = "" ] || [ "$cur" = "-" ] || [ "$cur" = "--" ] && (( "$numargs" > 2 )); then
+                        _complete_4_horsemen_subcommands "${subcommands}"
+                    else
+                        COMPREPLY=( $(compgen -W "${subcommands}" -- ${cur}) )
+                    fi
+                    return 0
+                    ;;
+
+        'versionpro')
             if [ "$cur" = "" ] || [ "$cur" = "-" ] || [ "$cur" = "--" ]; then
 
-                _complete_xlines_commands "${commands} ${options}"
+                _complete_versionpro_commands "${commands} ${options}"
                 return 0
 
             fi
-            ;;
-
-        *)
-            _pathopt
-            return 0
             ;;
 
     esac
