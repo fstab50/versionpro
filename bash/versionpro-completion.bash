@@ -237,6 +237,38 @@ function _versionpro_completions(){
             return 0
             ;;
 
+        'version' | 'versionp' | 'versionpr')
+            COMPREPLY=( $(compgen -W "${commands} ${options}" -- ${cur}) )
+            return 0
+            ;;
+
+    esac
+
+    case "${prev}" in
+
+        '--help' | '--version')
+            return 0
+            ;;
+
+        '--update')
+            ##
+            ##  Return compreply with any of the 5 comp_words that
+            ##  not already present on the command line
+            ##
+            declare -a horsemen
+            horsemen=( '--debug' '--pypi' '--set-version' )
+            subcommands=$(_parse_compwords COMP_WORDS[@] horsemen[@])
+            numargs=$(_numargs "$subcommands")
+
+            if [ "$cur" = "" ] || [ "$cur" = "-" ] || [ "$cur" = "--" ] && (( "$numargs" > 2 )); then
+                _complete_4_horsemen_subcommands "${subcommands}"
+            else
+                COMPREPLY=( $(compgen -W "${subcommands}" -- ${cur}) )
+                #COMPREPLY=( $(compgen -W '--set-version --pypi --debug' -- ${cur}) )
+            fi
+            return 0
+            ;;
+
         '--pypi')
             ##
             ##  Return compreply with any of the 5 comp_words that
@@ -270,24 +302,6 @@ function _versionpro_completions(){
             else
                 COMPREPLY=( $(compgen -W "${subcommands}" -- ${cur}) )
             fi
-            return 0
-            ;;
-
-        'version' | 'versionp' | 'versionpr')
-            COMPREPLY=( $(compgen -W "${commands} ${options}" -- ${cur}) )
-            return 0
-            ;;
-
-    esac
-
-    case "${prev}" in
-
-        '--help' | '--version')
-            return 0
-            ;;
-
-        '--update')
-            _complete_versionpro_commands "--pypi --set-version --debug"
             return 0
             ;;
 
