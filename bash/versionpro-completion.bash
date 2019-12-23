@@ -166,6 +166,12 @@ function _versionpro_completions(){
             return 0
             ;;
 
+        '--dryrun')
+            COMPREPLY=( $(compgen -W '--force-set' -- ${cur}) )
+            return 0
+            ;;
+
+
         '--update')
             ##
             ##  Return compreply with any of the 5 comp_words that
