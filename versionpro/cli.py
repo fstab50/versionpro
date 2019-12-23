@@ -114,7 +114,7 @@ def help_menu():
 
   ''' + bd + '''OPTIONS''' + rst + '''
 
-        $ ''' + act + PACKAGE + rst + ' ' + lbct + ' --update ' + ctr + ' --dryrun ' + rbct + '  ' + lbct + ''' --set-version <value> ''' + rbct + '''
+        $ ''' + act + PACKAGE + rst + ' ' + lbct + ' --update ' + ctr + ' --dryrun ' + rbct + ' ' + lbct + ''' --set-version <value> ''' + rbct + '''
 
                          -u, --update
                         [-p, --pypi  ]
@@ -204,7 +204,7 @@ def pypi_registry(package_name):
         Validate package build version vs. pypi version if exists
 
     Returns:
-        Full version signature if package   ||   None
+        Full version signature if package   ||   N/A
         exists in pypi registry             ||
 
     """
@@ -212,14 +212,31 @@ def pypi_registry(package_name):
     search_cmd = 'pip3 search {} 2>/dev/null'.format(package_name)
 
     try:
-        if subprocess.getoutput(installed_cmd):
-            r = subprocess.getoutput(installed_cmd)
-            parsed = r.split('\n')
-            raw = [x for x in parsed if x.startswith('Version')][0]
-            return raw.split(':')[1].strip()
-        else:
-            r = subprocess.getoutput(search_cmd)
-            return r.split('-')[0].split('(')[1].split(')')[0].strip()
+
+        r = subprocess.getoutput(search_cmd)
+        return r.split('-')[0].split('(')[1].split(')')[0].strip()
+
+    except Exception:
+        return 'N/A'
+
+
+def installed_version(package_name):
+    """
+        Validate package installed version if exists
+
+    Returns:
+        Full version signature if package   ||   N/A
+        installed in local environment      ||
+
+    """
+    installed_cmd = 'pip3 show {} 2>/dev/null'.format(package_name)
+
+    try:
+        r = subprocess.getoutput(installed_cmd)
+        parsed = r.split('\n')
+        raw = [x for x in parsed if x.startswith('Version')][0]
+        return raw.split(':')[1].strip()
+
     except Exception:
         return 'N/A'
 
