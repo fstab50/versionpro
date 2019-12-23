@@ -1,10 +1,8 @@
 # include
 include README.rst
 include DESCRIPTION.rst
-include LICENSE
-include bash/xlines-completion.bash
-include config/exclusions.list
-include config/directories.list
+include LICENSE.md
+include bash/versionpro-completion.bash
 
 # exclude
 exclude .gitignore
