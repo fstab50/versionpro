@@ -7,6 +7,7 @@ Build Script local logging and configuration variables
 
 """
 import os
+import sys
 import subprocess
 from versionpro.help import help_menu
 
@@ -33,6 +34,7 @@ def package_name(artifact):
                 return line.split(':')[1].strip()
     except Exception:
         help_menu()
+        sys.exit(0)
     return None
 
 

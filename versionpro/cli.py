@@ -339,6 +339,7 @@ def main():
         module = locate_version_module(PACKAGE)
     except Exception:
         help_menu()
+        sys.exit(exit_codes['EX_OK']['Code'])
 
     parser = argparse.ArgumentParser(add_help=False)
 
