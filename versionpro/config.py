@@ -8,6 +8,8 @@ Build Script local logging and configuration variables
 """
 import os
 import subprocess
+from versionpro.help import help_menu
+
 
 artifact = 'DESCRIPTION.rst'
 enable_logging = True
@@ -23,11 +25,14 @@ def _root():
 
 
 def package_name(artifact):
-    with open(artifact) as f1:
-        f2 = f1.readlines()
-    for line in f2:
-        if line.startswith('PACKAGE'):
-            return line.split(':')[1].strip()
+    try:
+        with open(artifact) as f1:
+            f2 = f1.readlines()
+        for line in f2:
+            if line.startswith('PACKAGE'):
+                return line.split(':')[1].strip()
+    except Exception:
+        help_menu()
     return None
 
 
