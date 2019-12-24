@@ -14,6 +14,8 @@ def help_menu():
         Command line parameter options (Help Menu)
 
     """
+    # formatting
+    act = c.ORANGE                         # accent highlight (bright orange)
     bcy = c.BRIGHT_CYAN
     bd = c.BOLD + c.BRIGHT_WHITE           # title formatting
     rst = c.RESET
