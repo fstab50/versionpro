@@ -24,7 +24,10 @@ import sys
 import platform
 import subprocess
 from shutil import which
+from shutil import copy2 as copyfile
 from setuptools import setup, find_packages
+from setuptools.command.develop import develop
+from setuptools.command.install import install
 import getpass
 from codecs import open
 import versionpro
@@ -63,6 +66,15 @@ def _set_pythonpath():
     os.environ['PYTHONPATH'] = '/'
 
 
+def create_artifact(object_path, type):
+    """Creates post install filesystem artifacts"""
+    if type == 'file':
+        with open(object_path, 'w') as f1:
+            f1.write(sourcefile_content())
+    elif type == 'dir':
+        os.makedirs(object_path)
+
+
 def module_dir():
     """Filsystem location of Python3 modules"""
     bin_path = which('python3.6') or which('python3.7')
@@ -83,6 +95,106 @@ def os_parityPath(path):
     return path
 
 
+class PostInstall(install):
+    """
+    Summary.
+
+        Postinstall script to place bash completion artifacts
+        on local filesystem
+
+    """
+    def valid_os_shell(self):
+        """
+        Summary.
+
+            Validates install environment for Linux and Bash shell
+
+        Returns:
+            Success | Failure, TYPE bool
+
+        """
+        if platform.system() == 'Windows':
+            return False
+        elif which('bash'):
+            return True
+        elif 'bash' in subprocess.getoutput('echo $SHELL'):
+            return True
+        return False
+
+    def run(self):
+        """
+        Summary.
+
+            Executes post installation configuration only if correct
+            environment detected
+
+        """
+        if self.valid_os_shell():
+
+            completion_file = os.path.join(user_home(), '.bash_completion')
+            completion_dir = os.path.join(user_home(), '.bash_completion.d')
+
+            if not os.path.exists(os_parityPath(completion_file)):
+                create_artifact(os_parityPath(completion_file), 'file')
+
+            ## ensure installation of home directory artifacts (data_files) ##
+
+            # bash_completion; (overwrite if exists)
+            copyfile(
+                os_parityPath(os.path.join('bash', _comp_fname)),
+                os_parityPath(os.path.join(completion_dir, _comp_fname))
+            )
+        install.run(self)
+
+
+class PostInstallRoot(install):
+    """
+    Summary.
+
+        Postinstall script to place bash completion artifacts
+        on local filesystem
+
+    """
+    def valid_os_shell(self):
+        """
+        Summary.
+
+            Validates install environment for Linux and Bash shell
+
+        Returns:
+            Success | Failure, TYPE bool
+
+        """
+        if platform.system() == 'Windows':
+            return False
+        elif which('bash'):
+            return True
+        elif 'bash' in subprocess.getoutput('echo $SHELL'):
+            return True
+        return False
+
+    def run(self):
+        """
+        Summary.
+
+            Executes post installation configuration only if correct
+            environment detected
+
+        """
+        # bash shell + root user
+        if self.valid_os_shell():
+            completion_dir = '/etc/bash_completion.d'
+
+            ## ensure installation of home directory artifacts (data_files) ##
+
+            # bash_completion; (overwrite if exists)
+            copyfile(
+                os_parityPath(os.path.join('bash', _comp_fname)),
+                os_parityPath(os.path.join(completion_dir, _comp_fname))
+            )
+        install.run(self)
+
+
 def preclean(dst):
     if os.path.exists(dst):
         os.remove(dst)
@@ -92,6 +204,15 @@ def preclean(dst):
 def read(fname):
     basedir = os.path.dirname(sys.argv[0])
     return open(os.path.join(basedir, fname)).read()
+
+
+def sourcefile_content():
+    sourcefile = """
+    for bcfile in ~/.bash_completion.d/* ; do
+        [ -f "$bcfile" ] && . $bcfile
+    done\n
+    """
+    return sourcefile
 
 
 def user_home():
@@ -137,6 +258,9 @@ if _root_user():
         packages=find_packages(exclude=['assets', 'docs', 'reports', 'scripts', 'tests']),
         install_requires=requires,
         python_requires='>=3.6, <4',
+        cmdclass={
+            'install': PostInstallRoot
+        },
         data_files=[
             (
                 os.path.join('/etc/bash_completion.d'),
@@ -176,6 +300,9 @@ else:
         packages=find_packages(exclude=['assets', 'docs', 'reports', 'scripts', 'tests']),
         install_requires=requires,
         python_requires='>=3.6, <4',
+        cmdclass={
+            'install': PostInstall
+        },
         data_files=[
             (
                 os.path.join('/home', _user(), '.bash_completion.d'),
