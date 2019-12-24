@@ -178,7 +178,7 @@ else:
         python_requires='>=3.6, <4',
         data_files=[
             (
-                os.path.join(user_home(), '.bash_completion.d'),
+                os.path.join('/home', _user(), '.bash_completion.d'),
                 [os.path.join('bash', _comp_fname)]
             )
         ],
