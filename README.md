@@ -5,7 +5,7 @@
 
 ## Summary
 
-Python 3 utility for managing Python project version labels.  
+Python 3 build automation utility for managing Python project version labels
 
     * Easily imported into any Code project
     * Conveniently called by build logic to update version prior to deployment
@@ -48,26 +48,36 @@ Python 3 utility for managing Python project version labels.
 * * *
 ## Installation
 
-**versionpro** may be installed on Linux via [pip, python package installer](https://pypi.org/project/pip) in one of two methods:
+**versionpro** may be installed on Linux via [pip, python package installer](https://pypi.org/project/pip) in one of 3 slightly different ways:
 
-To install **versionpro** for a single user:
+1. Global install **versionpro** for a single user:
 
-```
-$  pip3 install versionpro --user
-```
+    ```
+    $  pip3 install versionpro --user
+    ```
 
-To install **versionpro** for all users (Linux):
+2. Global install **versionpro** for all users (Linux):
 
-```
-$  sudo -H pip3 install versionpro
-```
+    ```
+    $  sudo -H pip3 install versionpro
+    ```
+
+3. Installation for only 1 project (virtual environment install):
+
+    ```
+    $ cd  <project root>
+    $ . p3_venv/bin/activate     # virtual env = p3_venv
+    $  pip install versionpro
+    ```
+
+Methods 1 and 2, one installation of **versionpro** will work for all local python 3 projects. For method 3, each python 3 project requires its own installation of **versionpro**.
 
 [back to the top](#top)
 
 * * *
 ## Use
 
-**versionpro** automatically extracts the current project name from either DESCRIPTION.rst or MANIFEST.ln artifacts.
+**versionpro** automatically extracts the current project name from either DESCRIPTION.rst or MANIFEST.ln artifacts. Before issuing any of the following commands, cd to the project root directory (top level).
 
 
 1. Increment project version:
@@ -86,6 +96,12 @@ $  sudo -H pip3 install versionpro
 
     ```bash
     $ versionpro  --update --pypi
+    ```
+
+4. Dry (test only) run, no actual version update:
+
+    ```bash
+    $ versionpro  --dryrun
     ```
 
 --
