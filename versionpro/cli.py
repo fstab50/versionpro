@@ -125,6 +125,7 @@ def options(parser, help_menu=True):
     parser.add_argument("-D", "--debug", dest='debug', action='store_true', default=False, required=False)
     parser.add_argument("-h", "--help", dest='help', action='store_true', default=False, required=False)
     parser.add_argument("-s", "--set-version", dest='set', default=None, nargs='?', type=str, required=False)
+    parser.add_argument("-p", "--pypi", dest='pypi', action='store_true', default=False, required=False)
     parser.add_argument("-u", "--update", dest='update', action='store_true', default=False, required=False)
     parser.add_argument("-V", "--version", dest='version', action='store_true', required=False)
     return parser.parse_known_args()
@@ -165,7 +166,16 @@ def pypi_registry(package_name):
         return r.split('-')[0].split('(')[1].split(')')[0].strip()
 
     except Exception:
-        return 'N/A'
+        return None
+
+
+def pypi_version(package_name, module, debug=False):
+    """Update version lablel by incrementing pypi registry version"""
+    def native_version(pkg, version_module):
+        return update_signature(installed_version(pkg), version_module)
+
+    version = pypi_registry(package_name)
+    return update_signature(version, module) if version else native_version(package_name, module)
 
 
 def installed_version(package_name):
@@ -186,7 +196,7 @@ def installed_version(package_name):
         return raw.split(':')[1].strip()
 
     except Exception:
-        return 'N/A'
+        return None
 
 
 def update_signature(version, path):
@@ -220,7 +230,7 @@ def update_dryrun(package_name, module, force, debug=False):
     current = current_version(module_path)
     stdout_message('Current project version found: {}'.format(current))
 
-    pypi = pypi_registry(package_name)
+    pypi = pypi_registry(package_name) or 'N/A'
     stdout_message('Current pypi registry version found: {}'.format(pypi))
 
     _version = greater_version(current, pypi)
@@ -370,6 +380,10 @@ def main():
     elif args.dryrun:
         # use version contained in pypi registry
         update_dryrun(PACKAGE, module, args.set, args.debug)
+        return 0
+
+    elif args.pypi:
+        pypi_version(PACKAGE, module, args.debug)
         return 0
 
     elif args.update:
