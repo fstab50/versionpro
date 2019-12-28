@@ -49,6 +49,18 @@ except Exception:
     user_home = os.getenv('username')
 
 
+def _debug_display(*args):
+    """Output variables and their values for debugging purposes"""
+    for arg in args:
+        stdout_message(f'{getattr(arg, Name)}: {arg}')
+    return True
+
+
+def varname(var):
+    _local_vars = inspect.currentframe().f_back.f_locals.items()
+    return [var_name for var_name, var_val in _local_vars if var_val is var]
+
+
 def _root():
     """Returns root directory of git project repository"""
     cmd = 'git rev-parse --show-toplevel 2>/dev/null'
@@ -174,8 +186,9 @@ def pypi_version(package_name, module, debug=False):
     def native_version(pkg, version_module):
         return update_signature(installed_version(pkg), version_module)
 
+    module_path = os.path.join(_root(), package_name, module)
     version = pypi_registry(package_name)
-    return update_signature(version, module) if version else native_version(package_name, module)
+    return update_signature(version, module_path) if version else native_version(package_name, module_path)
 
 
 def installed_version(package_name):
@@ -345,8 +358,10 @@ def main():
     """
     # prerequisities
     try:
+
         PACKAGE = package_name(os.path.join(_root(), 'DESCRIPTION.rst'))
         module = locate_version_module(PACKAGE)
+
     except Exception:
         help_menu()
         sys.exit(exit_codes['EX_OK']['Code'])
@@ -360,6 +375,10 @@ def main():
     except Exception as e:
         stdout_message(str(e), 'ERROR')
         return exit_codes['E_BADARG']['Code']
+
+    if args.debug:
+        stdout_message('PACKAGE: {}'.format(PACKAGE), prefix='DBUG')
+        stdout_message('module: {}'.format(module), prefix='DBUG')
 
     if (args.help or len(sys.argv) == 1) and not args.version:
         help_menu()
