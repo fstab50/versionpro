@@ -3,7 +3,7 @@
 TMPDIR='/tmp'
 PROFILE='imagestore'
 BUCKET='images.origin'
-KEY='xlines'
+KEY='versionpro'
 
 pkg_path=$(cd "$(dirname $0)"; pwd -P)
 
