@@ -184,11 +184,12 @@ def pypi_registry(package_name):
 def pypi_version(package_name, module, debug=False):
     """Update version lablel by incrementing pypi registry version"""
     def native_version(pkg, version_module):
-        return update_signature(installed_version(pkg), version_module)
+        new_version = increment_version(installed_version(pkg))
+        return update_signature(new_version, version_module)
 
     module_path = os.path.join(_root(), package_name, module)
-    version = pypi_registry(package_name)
-    return update_signature(version, module_path) if version else native_version(package_name, module_path)
+    new = increment_version(pypi_registry(package_name))
+    return update_signature(new, module_path) if new else native_version(package_name, module_path)
 
 
 def installed_version(package_name):
@@ -379,6 +380,7 @@ def main():
     if args.debug:
         stdout_message('PACKAGE: {}'.format(PACKAGE), prefix='DBUG')
         stdout_message('module: {}'.format(module), prefix='DBUG')
+        stdout_message('module_path: {}'.format(os.path.join(PACKAGE, module)), prefix='DBUG')
 
     if (args.help or len(sys.argv) == 1) and not args.version:
         help_menu()
