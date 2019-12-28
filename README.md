@@ -20,6 +20,8 @@ Python 3 build automation utility for managing Python project version labels
 
 * [**Installation**](#installation)
 
+* [**Options**](#options)
+
 * [**Use**](#use)
 
 * [**Author & Copyright**](#author--copyright)
@@ -71,6 +73,19 @@ Python 3 build automation utility for managing Python project version labels
     ```
 
 Methods 1 and 2, one installation of **versionpro** will work for all local python 3 projects. For method 3, each python 3 project requires its own installation of **versionpro**.
+
+[back to the top](#top)
+
+* * *
+## Options
+
+```bash
+$ versionpro --help
+```
+
+[![help](./assets/help-menu.png)](http://images.awspros.world/versionpro/help-menu.png)&nbsp;
+
+--
 
 [back to the top](#top)
 
