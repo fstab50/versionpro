@@ -24,7 +24,7 @@ def help_menu():
     ctr = bcy + '|' + rst
 
     menu = '''
-                    ''' + bd + PACKAGE + rst + ''' help contents
+                      ''' + bd + PACKAGE + rst + ''' help contents
 
   ''' + bd + '''DESCRIPTION''' + rst + '''
 
@@ -42,20 +42,23 @@ def help_menu():
                         [-d, --debug  ]
                         [-h, --help   ]
 
-        ''' + bd + '''-d''' + rst + ''', ''' + bd + '''--dryrun''' + rst + ''':  Simulate version update without altering the
-            real project version signature. Output useful parameters.
+        ''' + bd + '''-D''' + rst + ''', ''' + bd + '''--debug''' + rst + ''': Debug mode, verbose output for debug tracing.
+
+        ''' + bd + '''-d''' + rst + ''', ''' + bd + '''--dryrun''' + rst + ''':  Simulate version label update without altering
+            the actual project version signature, print useful stats.
+
+        ''' + bd + '''-h''' + rst + ''', ''' + bd + '''--help''' + rst + ''':  Print this help menu and detailed option info.
+
+        ''' + bd + '''-p''' + rst + ''', ''' + bd + '''--pypi''' + rst + ''': Increment current package version if found in the
+            public pypi.python.org registry.
 
         ''' + bd + '''-s''' + rst + ''', ''' + bd + '''--set-version''' + rst + ''' (string): When given, overrides all version
             information contained in the project to hardset the exact
-            version specified by set-version parameter. Must be used
+            version specified by set-version parameter.  Must be used
             with --update option to effect a version label change.
 
-        ''' + bd + '''-u''' + rst + ''', ''' + bd + '''--update''' + rst + ''': Increment current package version. Can be used
+        ''' + bd + '''-u''' + rst + ''', ''' + bd + '''--update''' + rst + ''':  Increment current package version. Can be used
             with --set-version to update to forced version number.
-
-        ''' + bd + '''-D''' + rst + ''', ''' + bd + '''--debug''' + rst + ''': Debug mode, verbose output.
-
-        ''' + bd + '''-h''' + rst + ''', ''' + bd + '''--help''' + rst + ''': Print this help menu
 
         ''' + bd + '''-V''' + rst + ''', ''' + bd + '''--version''' + rst + ''': Print package version and copyright info.
     '''
