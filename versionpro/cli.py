@@ -187,9 +187,16 @@ def pypi_version(package_name, module, debug=False):
         new_version = increment_version(installed_version(pkg))
         return update_signature(new_version, version_module)
 
-    module_path = os.path.join(_root(), package_name, module)
-    new = increment_version(pypi_registry(package_name))
-    return update_signature(new, module_path) if new else native_version(package_name, module_path)
+    try:
+        module_path = os.path.join(_root(), package_name, module)
+        pypi = pypi_registry(package_name)
+        stdout_message('pypi.python.org registry version:  {}'.format(pypi), prefix='OK')
+        new = increment_version(pypi)
+        stdout_message('Incremented version to be applied:  {}'.format(new))
+    except Exception:
+        stdout_message('Problem retrieving version label from public pypi.python.org', prefix='WARN')
+        return native_version(package_name, module_path)
+    return update_signature(new, module_path) #if new else native_version(package_name, module_path)
 
 
 def installed_version(package_name):
