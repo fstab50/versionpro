@@ -32,7 +32,7 @@ def help_menu():
         version with pypi registery to ensure consistent version sign-
         ature progression.
 
-  ''' + bd + '''OPTIONS''' + rst + '''
+  ''' + bd + '''SYNOPSIS''' + rst + '''
 
         $ ''' + act + PACKAGE + rst + ' ' + lbct + ' --update ' + ctr + ' --dryrun ' + rbct + ' ' + lbct + ''' --set-version <value> ''' + rbct + '''
 
@@ -41,6 +41,8 @@ def help_menu():
                         [-s, --set-version <value>  ]
                         [-d, --debug  ]
                         [-h, --help   ]
+
+  ''' + bd + '''OPTIONS''' + rst + '''
 
         ''' + bd + '''-D''' + rst + ''', ''' + bd + '''--debug''' + rst + ''': Debug mode, verbose output for debug tracing.
 
