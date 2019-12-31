@@ -51,7 +51,9 @@ Each Python project you for which you wish to automate versioning must:
     * `_version.py`
     * `version.py`
 
-* Have a `DESCRIPTION.rst` file.  File must contain a line `PACKAGE = <dir containing python modules>`.
+* Have a `DESCRIPTION.rst` file.  File must contain a line `PACKAGE = <dir containing python modules>`. Example:
+
+[![description](./assets/description.rst.png)](http://images.awspros.world/versionpro/description.rst.png)&nbsp;
 
 --
 
