@@ -38,12 +38,12 @@ Python 3 build automation utility for managing Python project version labels
 
 ## Dependencies
 
-### Runtime Environment
+### I. Runtime Environment
 
 * [Python 3.6+](https://docs.python.org/3/).
 * [Libtools](https://github.com/fstab50/libtools) General utilities library
 
-### Project
+### II. Projects
 
 Each Python project you for which you wish to automate versioning must:
 
