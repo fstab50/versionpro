@@ -38,20 +38,20 @@ Python 3 build automation utility for managing Python project version labels
 
 ## Dependencies
 
-#### Environment
+#### Runtime Environment
 
-[versionpro](https://github.com/fstab50/versionpro) requires:
+    [versionpro](https://github.com/fstab50/versionpro) requires:
 
-* [Python 3.6+](https://docs.python.org/3/).
+        * [Python 3.6+](https://docs.python.org/3/).
 
-* [Libtools](https://github.com/fstab50/libtools) General utilities library
+        * [Libtools](https://github.com/fstab50/libtools) General utilities library
 
 #### Project
 
-Each Python project you for which you wish to automate versioning must:
+    Each Python project you for which you wish to automate versioning must:
 
-* Store version in a python module (file ending in '.py').  Module must contain `version` in the name.
-* Have a `DESCRIPTION.rst` file.  File must contain `PACKAGE = <project name>`.
+        * Store version in a python module (file ending in '.py').  Module must contain `version` in the name.
+        * Have a `DESCRIPTION.rst` file.  File must contain `PACKAGE = <project name>`.
 
 --
 
