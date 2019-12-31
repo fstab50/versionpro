@@ -68,6 +68,7 @@ def _root():
 
 
 def current_version(module_path):
+    """Return the current application version label"""
     with open(module_path) as f1:
         f2 = f1.read()
     return f2.split('=')[1].strip()[1:-1]
@@ -76,9 +77,12 @@ def current_version(module_path):
 def greater_version(versionA, versionB):
     """
     Summary:
+
         Compares to version strings with multiple digits and returns greater
+
     Returns:
         greater, TYPE: str
+
     """
     try:
 
@@ -104,6 +108,9 @@ def greater_version(versionA, versionB):
 
 
 def locate_version_module(directory):
+    """
+    Returns path to python project module containing __version__
+    """
     files = list(filter(lambda x: x.endswith('.py'), os.listdir(directory)))
     return [f for f in files if 'version' in f][0]
 
