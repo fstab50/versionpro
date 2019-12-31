@@ -126,6 +126,7 @@ def identical_version(new, existing):
 
 
 def increment_version(current):
+    """Increments minor revision number by one"""
     major = '.'.join(current.split('.')[:2])
     minor = int(current.split('.')[-1]) + 1
     return '.'.join([major, str(minor)])
@@ -151,6 +152,9 @@ def options(parser, help_menu=True):
 
 
 def package_name(artifact):
+    """
+    Retrieves python package (app) name if denoted with 'PACKAGE' in a project file
+    """
     with open(artifact) as f1:
         f2 = f1.readlines()
     for line in f2:
