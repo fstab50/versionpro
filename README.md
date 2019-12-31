@@ -38,18 +38,20 @@ Python 3 build automation utility for managing Python project version labels
 
 ## Dependencies
 
-**Runtime Environment**.
+### Runtime Environment
 
 * [Python 3.6+](https://docs.python.org/3/).
 * [Libtools](https://github.com/fstab50/libtools) General utilities library
 
-**Project**.  Each Python project you for which you wish to automate versioning must:
+### Project
+
+Each Python project you for which you wish to automate versioning must:
 
 * Store version number in a python module (file ending in '.py').  Module must contain `version` in the name.  Examples:
     * `_version.py`
     * `version.py`
 
-* Have a `DESCRIPTION.rst` file.  File must contain `PACKAGE = <project name>`.
+* Have a `DESCRIPTION.rst` file.  File must contain a line `PACKAGE = <dir containing python modules>`.
 
 --
 
