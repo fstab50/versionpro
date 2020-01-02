@@ -136,6 +136,8 @@ class PostInstall(install):
 
             if not os.path.exists(os_parityPath(completion_file)):
                 create_artifact(os_parityPath(completion_file), 'file')
+            if not os.path.exists(os_parityPath(completion_dir)):
+                create_artifact(os_parityPath(completion_dir), 'dir')
 
             ## ensure installation of home directory artifacts (data_files) ##
 
@@ -305,9 +307,9 @@ else:
         },
         data_files=[
             (
-                os.path.join('/home', _user(), '.bash_completion.d'),
+                os.path.join(user_home(), '.bash_completion.d'),
                 [os.path.join('bash', _comp_fname)]
-            )
+            ),
         ],
         entry_points={
             'console_scripts': [
