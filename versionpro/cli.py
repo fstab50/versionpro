@@ -132,7 +132,7 @@ def increment_version(current):
     return '.'.join([major, str(minor)])
 
 
-def options(parser, help_menu=True):
+def options(parser, help_menu=False):
     """
     Summary:
         parse cli parameter options
@@ -147,7 +147,7 @@ def options(parser, help_menu=True):
     parser.add_argument("-s", "--set-version", dest='set', default=None, nargs='?', type=str, required=False)
     parser.add_argument("-p", "--pypi", dest='pypi', action='store_true', default=False, required=False)
     parser.add_argument("-u", "--update", dest='update', action='store_true', default=False, required=False)
-    parser.add_argument("-V", "--version", dest='version', action='store_true', required=False)
+    parser.add_argument("-V", "--version", dest='version', action='store_true', default=False, required=False)
     return parser.parse_known_args()
 
 
@@ -382,7 +382,7 @@ def main():
         module = locate_version_module(PACKAGE)
 
     except Exception:
-        help_menu()
+        stdout_message('You must cd to the root of a git project beforing calling versionpro')
         sys.exit(exit_codes['EX_OK']['Code'])
 
     parser = argparse.ArgumentParser(add_help=False)
@@ -400,7 +400,7 @@ def main():
         stdout_message('module: {}'.format(module), prefix='DBUG')
         stdout_message('module_path: {}'.format(os.path.join(PACKAGE, module)), prefix='DBUG')
 
-    if (args.help or len(sys.argv) == 1) and not args.version:
+    if args.help or (len(sys.argv) == 1):
         help_menu()
         return 0
 
