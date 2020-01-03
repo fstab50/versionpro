@@ -155,12 +155,14 @@ def package_name(artifact):
     """
     Retrieves python package (app) name if denoted with 'PACKAGE' in a project file
     """
-    with open(artifact) as f1:
-        f2 = f1.readlines()
-    for line in f2:
-        if line.startswith('PACKAGE'):
-            return line.split(':')[1].strip()
-    return None
+    try:
+        with open(artifact) as f1:
+            f2 = f1.readlines()
+        for line in f2:
+            if line.startswith('PACKAGE'):
+                return line.split(':')[1].strip()
+    except Exception:
+        return None
 
 
 def package_version():
@@ -382,7 +384,7 @@ def main():
         module = locate_version_module(PACKAGE)
 
     except Exception:
-        stdout_message('You must cd to the root of a git project beforing calling versionpro')
+        stdout_message('You must cd to the root of a git project before calling versionpro')
         sys.exit(exit_codes['EX_OK']['Code'])
 
     parser = argparse.ArgumentParser(add_help=False)
@@ -393,7 +395,7 @@ def main():
 
     except Exception as e:
         stdout_message(str(e), 'ERROR')
-        return exit_codes['E_BADARG']['Code']
+        sys.exit(exit_codes['E_BADARG']['Code'])
 
     if args.debug:
         stdout_message('PACKAGE: {}'.format(PACKAGE), prefix='DBUG')
@@ -401,7 +403,8 @@ def main():
         stdout_message('module_path: {}'.format(os.path.join(PACKAGE, module)), prefix='DBUG')
 
     if args.help or (len(sys.argv) == 1):
-        help_menu()
+        #help_menu()
+        stdout_message('help menu section executed')
         return 0
 
     elif args.version:
