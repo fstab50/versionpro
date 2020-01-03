@@ -376,12 +376,11 @@ def main():
     Return:
         Success || Failure, TYPE: bool
     """
-    def prerequisities():
+    def operational_parameters():
+        """Extract parameters required for version configuration operations"""
         try:
-
             package = package_name(os.path.join(_root(), 'DESCRIPTION.rst'))
             version_module = locate_version_module(package)
-
         except Exception:
             stdout_message('Cursor must be located in the root of a git project')
             sys.exit(exit_codes['EX_OK']['Code'])
@@ -419,18 +418,18 @@ def main():
         return 1
 
     elif args.dryrun:
-        PACKAGE, module = prerequisities()
+        PACKAGE, module = operational_parameters()
         update_dryrun(PACKAGE, module, args.set, args.debug)
         return 0
 
     elif args.pypi:
         # use version contained in pypi registry
-        PACKAGE, module = prerequisities()
+        PACKAGE, module = operational_parameters()
         pypi_version(PACKAGE, module, args.debug)
         return 0
 
     elif args.update:
-        PACKAGE, module = prerequisities()
+        PACKAGE, module = operational_parameters()
         update_version(args.set, PACKAGE, module, args.debug)
         return 0
 
