@@ -7,7 +7,6 @@ Use & Restrictions:
     - can have 0 as either x, y, or z
 
 """
-
 import os
 import sys
 import argparse
@@ -377,15 +376,16 @@ def main():
     Return:
         Success || Failure, TYPE: bool
     """
-    # prerequisities
-    try:
+    def prerequisities():
+        try:
 
-        PACKAGE = package_name(os.path.join(_root(), 'DESCRIPTION.rst'))
-        module = locate_version_module(PACKAGE)
+            package = package_name(os.path.join(_root(), 'DESCRIPTION.rst'))
+            version_module = locate_version_module(package)
 
-    except Exception:
-        stdout_message('You must cd to the root of a git project before calling versionpro')
-        sys.exit(exit_codes['EX_OK']['Code'])
+        except Exception:
+            stdout_message('Cursor must be located in the root of a git project')
+            sys.exit(exit_codes['EX_OK']['Code'])
+        return package, version_module
 
     parser = argparse.ArgumentParser(add_help=False)
 
@@ -403,8 +403,7 @@ def main():
         stdout_message('module_path: {}'.format(os.path.join(PACKAGE, module)), prefix='DBUG')
 
     if args.help or (len(sys.argv) == 1):
-        #help_menu()
-        stdout_message('help menu section executed')
+        help_menu()
         return 0
 
     elif args.version:
@@ -420,15 +419,18 @@ def main():
         return 1
 
     elif args.dryrun:
-        # use version contained in pypi registry
+        PACKAGE, module = prerequisities()
         update_dryrun(PACKAGE, module, args.set, args.debug)
         return 0
 
     elif args.pypi:
+        # use version contained in pypi registry
+        PACKAGE, module = prerequisities()
         pypi_version(PACKAGE, module, args.debug)
         return 0
 
     elif args.update:
+        PACKAGE, module = prerequisities()
         update_version(args.set, PACKAGE, module, args.debug)
         return 0
 

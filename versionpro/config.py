@@ -33,14 +33,14 @@ def package_name(artifact):
             if line.startswith('PACKAGE'):
                 return line.split(':')[1].strip()
     except Exception:
-        help_menu()
+        stdout_message('Cursor must be located in the root of a git project')
         sys.exit(0)
     return None
 
 
 script_config = {
     "PROJECT": {
-        "PACKAGE": package_name(os.path.join(_root(), artifact)),
+        "PACKAGE": 'versionpro',
     },
     "LOGGING": {
         "ENABLE_LOGGING": enable_logging,
