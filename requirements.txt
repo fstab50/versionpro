@@ -4,3 +4,4 @@ libtools
 setuptools
 twine
 ipdb
+veryprettytable
