@@ -441,7 +441,7 @@ def main():
         return 1
 
     elif args.set and not (args.update or args.dryrun):
-        stdout_message('--set-version must be used with --update or --dryrun.', prefix='FAIL')
+        stdout_message('--force-set must be used with --update or --dryrun.', prefix='FAIL')
         return 1
 
     elif args.dryrun:
