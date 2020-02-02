@@ -48,6 +48,7 @@ cm = ColorMap()
 yl = c.YELLOW + c.BOLD
 fs = c.GOLD3
 bd = c.BOLD
+titlec = c.BRIGHT_WHITE
 gn = c.BRIGHT_GREEN
 btext = text + c.BOLD
 bdwt = c.BOLD + c.BRIGHT_WHITE
@@ -127,29 +128,29 @@ def setup_table(pv, pypi, inc):
         )
 
     title_cell1 = 'Current Project'
-    title_cell2 = 'PYPI Repository'
+    title_cell2 = 'pypi.python.org'
     title_cell3 = 'Next Increment'
 
     x.field_names = [
-        bdwt + title_cell1 + frame,
-        bdwt + title_cell2 + frame,
-        bdwt + title_cell3 + frame,
+        titlec + title_cell1 + frame,
+        titlec + title_cell2 + frame,
+        titlec + title_cell3 + frame,
     ]
 
     # cell max width
-    x.max_width[bdwt + title_cell1 + frame] = column_widths['project']
-    x.max_width[bdwt + title_cell2 + frame] = column_widths['pypi']
-    x.max_width[bdwt + title_cell3 + frame] = column_widths['incremental']
+    x.max_width[titlec + title_cell1 + frame] = column_widths['project']
+    x.max_width[titlec + title_cell2 + frame] = column_widths['pypi']
+    x.max_width[titlec + title_cell3 + frame] = column_widths['incremental']
 
     # cell min = max width
-    x.min_width[bdwt + title_cell1 + frame] = column_widths['project']
-    x.min_width[bdwt + title_cell2 + frame] = column_widths['pypi']
-    x.min_width[bdwt + title_cell3 + frame] = column_widths['incremental']
+    x.min_width[titlec + title_cell1 + frame] = column_widths['project']
+    x.min_width[titlec + title_cell2 + frame] = column_widths['pypi']
+    x.min_width[titlec + title_cell3 + frame] = column_widths['incremental']
 
     # cell alignment
-    x.align[bdwt + title_cell1 + frame] = 'c'
-    x.align[bdwt + title_cell2 + frame] = 'c'
-    x.align[bdwt + title_cell3  + frame] = 'c'
+    x.align[titlec + title_cell1 + frame] = 'c'
+    x.align[titlec + title_cell2 + frame] = 'c'
+    x.align[titlec + title_cell3  + frame] = 'c'
 
     # populate table
     #  key credentials are either expired (age > KEYAGE_MAX) or valid
