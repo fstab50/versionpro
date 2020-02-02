@@ -16,6 +16,7 @@ from libtools import stdout_message, logd
 from versionpro import Colors
 from versionpro.config import script_config
 from versionpro.dryrun import setup_table
+from versionpro.core import locate_fileobjects
 from versionpro.about import about_object
 from versionpro.help import help_menu
 from versionpro import __version__, PACKAGE
@@ -27,6 +28,9 @@ c = Colors()
 module = os.path.basename(__file__)
 logd.local_config = script_config
 logger = logd.getLogger(__version__)
+
+# python modules containing version labels
+module_names = ['_version.py', 'version.py']
 
 # formatting
 act = c.ORANGE                  # accent highlight (bright orange)
@@ -114,6 +118,31 @@ def locate_version_module(directory):
     """
     files = list(filter(lambda x: x.endswith('.py'), os.listdir(directory)))
     return [f for f in files if 'version' in f][0]
+
+
+def global_version_module(root):
+    """
+        A global search of all objects in the git repository
+        to locate the python module containing version label
+
+    Args:
+        :root (str):  git repository root location
+
+    Returns:
+        single path to version module (str) ||  'unknown'
+    """
+    def disclaimer():
+        stdout_message('Cursor must be located in the root of a git project')
+        sys.exit(exit_codes['EX_OK']['Code'])
+
+    temp = []
+    for path in locate_fileobjects(root):
+        if os.path.split(path)[1] in module_names:
+            temp.append(path)
+    if len(temp) == 1:
+        path = temp[0]
+        return os.path.split(path)[0].split('/')[-1], os.path.split(path)[1]
+    else: disclaimer()
 
 
 def identical_version(new, existing):
@@ -381,8 +410,7 @@ def main():
             package = package_name(os.path.join(_root(), 'DESCRIPTION.rst'))
             version_module = locate_version_module(package)
         except Exception:
-            stdout_message('Cursor must be located in the root of a git project')
-            sys.exit(exit_codes['EX_OK']['Code'])
+            return global_version_module(_root())
         return package, version_module
 
     parser = argparse.ArgumentParser(add_help=False)
