@@ -132,34 +132,36 @@ def setup_table(pv, pypi, inc):
         bdwt + 'Incremental Version' + frame,
     ]
 
+    title_cell1 = 'Current Project'
+    title_cell2 = 'PYPI Repository'
+    title_cell3 = 'Next Increment'
+
     # cell max width
-    x.max_width[bdwt + '' + frame] = column_widths['project'] + column_widths['pypi'] + column_widths['incremental']
-    x.max_width[bdwt + 'Project Version' + frame] = column_widths['project']
-    x.max_width[bdwt + 'PYPI Version' + frame] = column_widths['pypi']
-    x.max_width[bdwt + 'Incremental Version' + frame] = column_widths['incremental']
+    x.max_width[bdwt + title_cell1 + frame] = column_widths['project']
+    x.max_width[bdwt + title_cell2 + frame] = column_widths['pypi']
+    x.max_width[bdwt + title_cell3 + frame] = column_widths['incremental']
 
     # cell min = max width
-    x.min_width[bdwt + '' + frame] = column_widths['project'] + column_widths['pypi'] + column_widths['incremental']
-    x.min_width[bdwt + 'Project Version' + frame] = column_widths['project']
-    x.min_width[bdwt + 'PYPI Version' + frame] = column_widths['pypi']
-    x.min_width[bdwt + 'Incremental Version' + frame] = column_widths['incremental']
+    x.min_width[bdwt + title_cell1 + frame] = column_widths['project']
+    x.min_width[bdwt + title_cell2 + frame] = column_widths['pypi']
+    x.min_width[bdwt + title_cell3 + frame] = column_widths['incremental']
 
     # cell alignment
-    x.align[bdwt + 'Project Version' + frame] = 'c'
-    x.align[bdwt + 'PYPI Version' + frame] = 'c'
-    x.align[bdwt + 'Incremental Version' + frame] = 'c'
+    x.align[bdwt + title_cell1 + frame] = 'c'
+    x.align[bdwt + title_cell2 + frame] = 'c'
+    x.align[bdwt + title_cell3  + frame] = 'c'
 
     # populate table
     #  key credentials are either expired (age > KEYAGE_MAX) or valid
-    profilename = c.BOLD + c.BRIGHT_BLUE + '25.03' + rst
-    user = c.BOLD + c.BRIGHT_BLUE + '15.05' + rst
-    accountId = c.BOLD + c.BRIGHT_BLUE + '1.13' + rst
+    project_version = c.BOLD + c.BRIGHT_BLUE + pv + rst
+    pypi_version = c.BOLD + c.BRIGHT_BLUE + pypi + rst
+    inc_version = c.BOLD + c.BRIGHT_BLUE + inc + rst
 
     x.add_row(
         [
-            rst + profilename + frame,
-            rst + user + frame,
-            rst + accountId + frame,
+            rst + project_version + frame,
+            rst + pypi_version + frame,
+            rst + inc_version + frame,
         ]
     )
 
