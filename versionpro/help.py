@@ -34,7 +34,7 @@ def help_menu():
 
   ''' + bd + '''SYNOPSIS''' + rst + '''
 
-        $ ''' + act + PACKAGE + rst + ' ' + lbct + ' --update ' + ctr + ' --dryrun ' + rbct + ' ' + lbct + ''' --set-version <value> ''' + rbct + '''
+        $ ''' + act + PACKAGE + rst + ' ' + lbct + ' --update ' + ctr + ' --dryrun ' + rbct + ' ' + lbct + ''' --force-set <value> ''' + rbct + '''
 
                          -u, --update
                         [-p, --pypi  ]
@@ -44,7 +44,7 @@ def help_menu():
 
   ''' + bd + '''OPTIONS''' + rst + '''
 
-        ''' + bd + '''-D''' + rst + ''', ''' + bd + '''--debug''' + rst + ''': Debug mode, verbose output for debug tracing.
+        ''' + bd + '''-D''' + rst + ''', ''' + bd + '''--debug''' + rst + ''': Debugging mode, verbose output for debug tracing.
 
         ''' + bd + '''-d''' + rst + ''', ''' + bd + '''--dryrun''' + rst + ''':  Simulate version label update without altering
             the actual project version signature, print useful stats.
@@ -54,15 +54,15 @@ def help_menu():
         ''' + bd + '''-p''' + rst + ''', ''' + bd + '''--pypi''' + rst + ''': Increment current package version if found in the
             public pypi.python.org registry.
 
-        ''' + bd + '''-s''' + rst + ''', ''' + bd + '''--force-set''' + rst + ''' (string): When given, overrides all version
-            information contained in project to force set the exact
-            version specified by force-set parameter.  Must be used
-            with --update option to effect a version label change.
+        ''' + bd + '''-s''' + rst + ''', ''' + bd + '''--force-set''' + rst + ''' (string):  When given, overrides all version
+            information contained in project to set the next version
+            to the value specified by force-set parameter.  Must use
+            with the --update option to affect a version change.
 
-        ''' + bd + '''-u''' + rst + ''', ''' + bd + '''--update''' + rst + ''':  Increment current package version. Can be used
-            with --set-version to update to forced version number.
+        ''' + bd + '''-u''' + rst + ''', ''' + bd + '''--update''' + rst + ''': Increment current package version. Can be used
+            with --force-set to update to forced version number.
 
-        ''' + bd + '''-V''' + rst + ''', ''' + bd + '''--version''' + rst + ''': Print package version and copyright info.
+        ''' + bd + '''-V''' + rst + ''', ''' + bd + '''--version''' + rst + ''': Print app package version and copyright info.
     '''
     print(menu)
     return True
