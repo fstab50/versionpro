@@ -25,7 +25,7 @@ from libtools.js import export_iterobject
 from libtools import stdout_message
 from libtools import Colors
 from libtools import stdout_message, logd
-from versionpro import Colors
+from versionpro import Colors, ColorMap
 
 
 try:
@@ -40,19 +40,21 @@ except Exception:
     text = Colors.CYAN
 
 
+c = Colors()
 cm = ColorMap()
 
+
 # universal colors
-yl = Colors.YELLOW + Colors.BOLD
-fs = Colors.GOLD3
-bd = Colors.BOLD
-gn = Colors.BRIGHT_GREEN
-btext = text + Colors.BOLD
-bdwt = cm.bdwt
-dgray = cm.dg1
+yl = c.YELLOW + c.BOLD
+fs = c.GOLD3
+bd = c.BOLD
+gn = c.BRIGHT_GREEN
+btext = text + c.BOLD
+bdwt = c.BOLD + c.BRIGHT_WHITE
+dgray = c.DARK_GRAY1
 frame = text
-ub = Colors.UNBOLD
-rst = Colors.RESET
+ub = c.UNBOLD
+rst = c.RESET
 
 
 tablespec = {
@@ -86,7 +88,6 @@ def display_table(table, exceptions, tabspaces=4):
     for e in table_str.split('\n'):
         print(indent + frame + e)
     sys.stdout.write(Colors.RESET + '\n')
-    display_skipped(exceptions) if exceptions else print('')
     sys.stdout.write(Colors.RESET + '\n\n')
     return True
 
@@ -123,17 +124,13 @@ def print_header(title, indent=4, spacing=4):
     tab4 = '\t'.expandtabs(4)                   # space between legend items
     tab5 = '\t'.expandtabs(5)                   # space between legend items
     tab6 = '\t'.expandtabs(6)                   # space between legend items
-    # construct legend
-    valid = '{} valid{}'.format(gn + bd + 'o' + rst, tab5)
-    near = '{} near expiration{}'.format(yl + bd + 'o' + rst, tab5)
-    exp = '{} expired'.format(cm.brd + bd + 'o' + rst)
     # output header
     print('\n\n\n')
     print(tab4, end='')
-    print(divbar * 119, end='')
-    print('\n' + tab4 + upbar + frame + '\t|'.expandtabs(60) + rst + frame + '\t|'.expandtabs(56) + rst)
-    print('{}{}{}{}{}{}'.format(tab4 + upbar + ltab, title + spac, valid, near, exp, tab6 + upbar))
-    print(tab4 + upbar + frame + '\t|'.expandtabs(60) + rst + frame + '\t|'.expandtabs(56) + rst)
+    print(divbar * 67, end='\n')
+    print(tab4 + '|' + ' ' * 65 + '|', end='\n')
+    print('{}{}'.format(tab4 + '|' + tab4 * 5, title))
+    print(tab4 + upbar + rst + tab4 * 16 + frame + ' |' + rst)
     return True
 
 
@@ -183,31 +180,23 @@ def setup_table(user_data, exception_list):
     x.align[bdwt + 'Incremental Version' + frame] = 'c'
 
     # populate table
-    for k, v in user_data.items():
+    #  key credentials are either expired (age > KEYAGE_MAX) or valid
+    profilename = c.BOLD + c.BRIGHT_BLUE + '25.03' + rst
+    user = c.BOLD + c.BRIGHT_BLUE + '15.05' + rst
+    accountId = c.BOLD + c.BRIGHT_BLUE + '1.13' + rst
 
-            dt = v['CreateDate']
-            expired = expired_keys(v['CreateDate'])
-            _days = time_remaining(dt)
-            k = truncate_fields(k)
-            v = truncate_fields(v)
-
-            #  key credentials are either expired (age > KEYAGE_MAX) or valid
-            profilename = cm.brd + k + rst if expired else k
-            user = cm.brd + v['iam_user'] + rst if expired else v['iam_user']
-            accountId = cm.brd + v['account'] + rst if expired else v['account']
-
-            x.add_row(
-                [
-                    rst + profilename + frame,
-                    rst + user + frame,
-                    rst + accountId + frame,
-                ]
-            )
+    x.add_row(
+        [
+            rst + profilename + frame,
+            rst + user + frame,
+            rst + accountId + frame,
+        ]
+    )
 
     # Table
-    vtab_int = 9
+    vtab_int = 7
     vtab = '\t'.expandtabs(vtab_int)
-    msg = '{}AWS Identity Access Key Expiration Report{}{}|{}'.format(btext, rst + frame, vtab, rst)
+    msg = '{}Project Version Labels{}{}|{}'.format(btext, rst + frame, '  ' + vtab * 3, rst)
     print_header(title=msg, indent=10, spacing=vtab_int)
     display_table(x, exception_list, tabspaces=4)
     return _postprocessing()

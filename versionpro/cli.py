@@ -38,6 +38,7 @@ rst = c.RESET                   # reset all color, formatting
 
 
 try:
+
     from libtools.oscodes_unix import exit_codes
     os_type = 'Linux'
     user_home = os.getenv('HOME')

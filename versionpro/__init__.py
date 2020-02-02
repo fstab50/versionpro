@@ -1,4 +1,5 @@
 from versionpro.colors import Colors
+from versionpro.colormap import ColorMap
 from versionpro._version import __version__ as version
 
 
