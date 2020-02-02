@@ -71,15 +71,7 @@ column_widths = {
 }
 
 
-def convert(dt):
-    """Convert days to hours"""
-    expiration_date = dt + KEYAGE_MAX
-    now = datetime.datetime.utcnow().replace(tzinfo=pytz.UTC)
-    if now < expiration_date and (expiration_date - now).days == 0:
-        return (expiration_date - now).seconds / 3600
-
-
-def display_table(table, exceptions, tabspaces=4):
+def display_table(table, tabspaces=4):
     """
     Print Table Object offset from left by tabspaces
     """
@@ -87,30 +79,8 @@ def display_table(table, exceptions, tabspaces=4):
     table_str = table.get_string()
     for e in table_str.split('\n'):
         print(indent + frame + e)
-    sys.stdout.write(Colors.RESET + '\n')
     sys.stdout.write(Colors.RESET + '\n\n')
     return True
-
-
-def format_remaining(days: int):
-    """
-        Formats days remaining value
-
-    Returns:
-        days (int) with appropriate color, spacing format applied
-    """
-    def spacing():
-        s = ''
-        for digit in str(days):
-            s = s + ' '
-        return s
-
-    if (0 <= days < KEYAGE_WARNING):
-        return cm.yl + spacing() + str(round(days)) + ' days' + rst
-    elif days < 0:
-        return cm.brd + spacing() + str(round(days / -1)) + 'd overdue' + rst
-    else:
-        return str(days) + ' days'
 
 
 def print_header(title, indent=4, spacing=4):
@@ -145,7 +115,7 @@ def _postprocessing():
     return True
 
 
-def setup_table(user_data, exception_list):
+def setup_table(pv, pypi, inc):
     """
     Renders Table containing data elements via cli stdout
     """
@@ -198,87 +168,5 @@ def setup_table(user_data, exception_list):
     vtab = '\t'.expandtabs(vtab_int)
     msg = '{}Project Version Labels{}{}|{}'.format(btext, rst + frame, '  ' + vtab * 3, rst)
     print_header(title=msg, indent=10, spacing=vtab_int)
-    display_table(x, exception_list, tabspaces=4)
+    display_table(x, tabspaces=4)
     return _postprocessing()
-
-
-def truncate_fields(element):
-    """
-        Truncates table field data to align with max column width
-
-    Returns:
-        truncated element, TYPE: dict or str
-    """
-    if isinstance(element, dict):
-        for k, v in element.items():
-            for name, width in column_widths.items():
-                if k == name and k != 'CreateDate':
-                    element[k] = v[:width]
-        return element
-    return element[:column_widths['ProfileName']]
-
-
-def prepare_reportdata(debug=False):
-    """
-        Prints out key expiration info for all profilenames associated with
-        the primary profilename given to access the account information
-
-    """
-    data, aliases = {}, {}
-    exceptions = []
-
-    if debug:
-        export_iterobject(affiliations)
-
-    for k, v in affiliations.items():
-
-        account = v['account']
-
-        try:
-            r = None
-            client = boto3_session(service='iam', profile=k)
-            r = client.list_access_keys()
-            key_metadata = r['AccessKeyMetadata']
-
-            if debug:
-                stdout_message(
-                    message='Key information received for profile {}'.format(bd + k + rst),
-                    prefix='OK'
-                )
-
-        except ClientError as e:
-            fname = inspect.stack()[0][3]
-            logger.info('{}: Unable to list key info for profile {}. Error {}'.format(fname, k, e))
-            exceptions.append(k)
-            continue
-
-        try:
-
-            if aliases.get(account):
-                alias = aliases[account]
-            else:
-                # human readable name of the account
-                alias = client.list_account_aliases()['AccountAliases'][0]
-
-                # store identified aliases
-                aliases[account] = alias
-
-        except ClientError:
-            alias = ''
-        except IndexError:
-            alias = account
-
-        accountId = alias or account
-        iam_user = key_metadata[0]['UserName']
-        status = key_metadata[0]['Status']
-        metadata = key_metadata[0]['CreateDate']
-
-        data[k] = {
-            'account': accountId,
-            'iam_user': iam_user,
-            'status': status,
-            'CreateDate': metadata
-        }
-
-        logger.info('IAM User {} key info found for AWS account {}'.format(iam_user, accountId))
-    return data, exceptions
