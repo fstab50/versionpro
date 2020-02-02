@@ -54,9 +54,9 @@ def help_menu():
         ''' + bd + '''-p''' + rst + ''', ''' + bd + '''--pypi''' + rst + ''': Increment current package version if found in the
             public pypi.python.org registry.
 
-        ''' + bd + '''-s''' + rst + ''', ''' + bd + '''--set-version''' + rst + ''' (string): When given, overrides all version
-            information contained in the project to hardset the exact
-            version specified by set-version parameter.  Must be used
+        ''' + bd + '''-s''' + rst + ''', ''' + bd + '''--force-set''' + rst + ''' (string): When given, overrides all version
+            information contained in project to force set the exact
+            version specified by force-set parameter.  Must be used
             with --update option to effect a version label change.
 
         ''' + bd + '''-u''' + rst + ''', ''' + bd + '''--update''' + rst + ''':  Increment current package version. Can be used
