@@ -29,12 +29,12 @@ from versionpro import Colors, ColorMap
 
 
 try:
-    from keyup.oscodes_unix import exit_codes
+    from libtools.oscodes_unix import exit_codes
     os_type = 'Linux'
     splitchar = '/'                             # character for splitting paths (linux)
     text = Colors.BRIGHT_CYAN
 except Exception:
-    from keyup.oscodes_win import exit_codes    # non-specific os-safe codes
+    from libtools.oscodes_win import exit_codes    # non-specific os-safe codes
     os_type = 'Windows'
     splitchar = '\\'                            # character for splitting paths (windows)
     text = Colors.CYAN
@@ -65,9 +65,9 @@ tablespec = {
 }
 
 column_widths = {
-    'project': 16,
-    'pypi': 16,
-    'incremental': 16,
+    'project': 17,
+    'pypi': 17,
+    'incremental': 17,
 }
 
 
@@ -95,7 +95,7 @@ def print_header(title, indent=4, spacing=4):
     tab5 = '\t'.expandtabs(5)                   # space between legend items
     tab6 = '\t'.expandtabs(6)                   # space between legend items
     # output header
-    print('\n\n\n')
+    print('\n\n')
     print(tab4, end='')
     print(divbar * 67, end='\n')
     print(tab4 + '|' + ' ' * 65 + '|', end='\n')
@@ -126,15 +126,15 @@ def setup_table(pv, pypi, inc):
             padding_width=tablespec['padding']
         )
 
-    x.field_names = [
-        bdwt + 'Project Version' + frame,
-        bdwt + 'PYPI Version' + frame,
-        bdwt + 'Incremental Version' + frame,
-    ]
-
     title_cell1 = 'Current Project'
     title_cell2 = 'PYPI Repository'
     title_cell3 = 'Next Increment'
+
+    x.field_names = [
+        bdwt + title_cell1 + frame,
+        bdwt + title_cell2 + frame,
+        bdwt + title_cell3 + frame,
+    ]
 
     # cell max width
     x.max_width[bdwt + title_cell1 + frame] = column_widths['project']
@@ -166,9 +166,9 @@ def setup_table(pv, pypi, inc):
     )
 
     # Table
-    vtab_int = 7
+    vtab_int = 20
     vtab = '\t'.expandtabs(vtab_int)
-    msg = '{}Project Version Labels{}{}|{}'.format(btext, rst + frame, '  ' + vtab * 3, rst)
+    msg = '{}PROJECT VERSION SOURCES{}{}|{}'.format(btext, rst + frame, '  ' + vtab, rst)
     print_header(title=msg, indent=10, spacing=vtab_int)
     display_table(x, tabspaces=4)
     return _postprocessing()

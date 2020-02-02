@@ -15,6 +15,7 @@ import subprocess
 from libtools import stdout_message, logd
 from versionpro import Colors
 from versionpro.config import script_config
+from versionpro.dryrun import setup_table
 from versionpro.about import about_object
 from versionpro.help import help_menu
 from versionpro import __version__, PACKAGE
@@ -262,23 +263,20 @@ def update_dryrun(package_name, module, force, debug=False):
 
     # current version
     current = current_version(module_path)
-    stdout_message('Current project version found: {}'.format(current))
 
+    # pypi.python.org registry version, if exits
     pypi = pypi_registry(package_name) or 'N/A'
-    stdout_message('Current pypi registry version found: {}'.format(pypi))
 
+    # increment (next) version
     _version = greater_version(current, pypi)
 
     if valid_version(_version):
         # hard set existing version to force_version value
         version_new = increment_version(_version)
-
     else:
         stdout_message('You must enter a valid version (x.y.z)', prefix='WARN')
         sys.exit(1)
-
-    stdout_message('Incremental project version: {}'.format(version_new if force is None else force))
-    return True
+    return setup_table(current, pypi, version_new)
 
 
 def update_version(force_version, package_name, module, debug=False):
