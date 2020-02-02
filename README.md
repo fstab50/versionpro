@@ -120,7 +120,7 @@ $ versionpro --help
 2. Hard Set project version::
 
     ```bash
-    $ versionpro  --update --set-version 1.8.1
+    $ versionpro  --update --force-set 1.8.1
     ```
 
 3. Utilise pypi version instead of project version:
@@ -134,6 +134,8 @@ $ versionpro --help
     ```bash
     $ versionpro  --dryrun
     ```
+
+[![dryrun](./assets/dryrun.png)](http://images.awspros.world/versionpro/dryrun.png)&nbsp;
 
 --
 
