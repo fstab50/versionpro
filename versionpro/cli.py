@@ -174,7 +174,7 @@ def options(parser, help_menu=False):
     parser.add_argument("-d", "--dryrun", dest='dryrun', action='store_true', default=False, required=False)
     parser.add_argument("-D", "--debug", dest='debug', action='store_true', default=False, required=False)
     parser.add_argument("-h", "--help", dest='help', action='store_true', default=False, required=False)
-    parser.add_argument("-s", "--set-version", dest='set', default=None, nargs='?', type=str, required=False)
+    parser.add_argument("-s", "--force-set", dest='set', default=None, nargs='?', type=str, required=False)
     parser.add_argument("-p", "--pypi", dest='pypi', action='store_true', default=False, required=False)
     parser.add_argument("-u", "--update", dest='update', action='store_true', default=False, required=False)
     parser.add_argument("-V", "--version", dest='version', action='store_true', default=False, required=False)
