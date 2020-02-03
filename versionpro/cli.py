@@ -136,13 +136,14 @@ def global_version_module(root):
         sys.exit(exit_codes['EX_OK']['Code'])
 
     temp = []
-    for path in locate_fileobjects(root):
-        if os.path.split(path)[1] in module_names:
-            temp.append(path)
-    if len(temp) == 1:
+    try:
+        for path in locate_fileobjects(root):
+            if os.path.split(path)[1] in module_names:
+                temp.append(path)
         path = temp[0]
         return os.path.split(path)[0].split('/')[-1], os.path.split(path)[1]
-    else: disclaimer()
+    except Exception:
+        return disclaimer()
 
 
 def identical_version(new, existing):
