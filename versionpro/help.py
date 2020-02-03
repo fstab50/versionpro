@@ -38,7 +38,7 @@ def help_menu():
 
                          -u, --update
                         [-p, --pypi  ]
-                        [-s, --set-version <value>  ]
+                        [-s, --force-set <value>  ]
                         [-d, --debug  ]
                         [-h, --help   ]
 
