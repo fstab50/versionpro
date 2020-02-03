@@ -44,15 +44,15 @@ def help_menu():
 
   ''' + bd + '''OPTIONS''' + rst + '''
 
-        ''' + bd + '''-D''' + rst + ''', ''' + bd + '''--debug''' + rst + ''': Debugging mode, verbose output for debug tracing.
+        ''' + bd + '''-D''' + rst + ''', ''' + bd + '''--debug''' + rst + ''': Debugging mode, verbose output for bug tracing.
 
-        ''' + bd + '''-d''' + rst + ''', ''' + bd + '''--dryrun''' + rst + ''':  Simulate version label update without altering
-            the actual project version signature, print useful stats.
+        ''' + bd + '''-d''' + rst + ''', ''' + bd + '''--dryrun''' + rst + ''': Simulate version label update without altering
+            the actual project version signature, but print stats.
 
         ''' + bd + '''-h''' + rst + ''', ''' + bd + '''--help''' + rst + ''':  Print this help menu and detailed option info.
 
-        ''' + bd + '''-p''' + rst + ''', ''' + bd + '''--pypi''' + rst + ''': Increment current package version if found in the
-            public pypi.python.org registry.
+        ''' + bd + '''-p''' + rst + ''', ''' + bd + '''--pypi''' + rst + ''': Increment the pypi package version if package
+            deployed in the public pypi.python.org registry.
 
         ''' + bd + '''-s''' + rst + ''', ''' + bd + '''--force-set''' + rst + ''' (string):  When given, overrides all version
             information contained in project to set the next version
