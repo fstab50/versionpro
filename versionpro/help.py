@@ -51,7 +51,7 @@ def help_menu():
 
         ''' + bd + '''-h''' + rst + ''', ''' + bd + '''--help''' + rst + ''':  Print this help menu and detailed option info.
 
-        ''' + bd + '''-p''' + rst + ''', ''' + bd + '''--pypi''' + rst + ''': Increment the pypi package version if package
+        ''' + bd + '''-p''' + rst + ''', ''' + bd + '''--pypi''' + rst + ''': Increment the pypi package version if package is
             deployed in the public pypi.python.org registry.
 
         ''' + bd + '''-s''' + rst + ''', ''' + bd + '''--force-set''' + rst + ''' (string):  When given, overrides all version
