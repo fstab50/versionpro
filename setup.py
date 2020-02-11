@@ -34,7 +34,8 @@ import versionpro
 
 
 requires = [
-    'libtools>=0.3.2'
+    'libtools>=0.3.2',
+    'veryprettytable>=0.8.1'
 ]
 
 
