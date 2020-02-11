@@ -302,7 +302,7 @@ def update_dryrun(package_name, module, force, debug=False):
 
     if valid_version(_version):
         # hard set existing version to force_version value
-        version_new = increment_version(_version)
+        version_new = force or increment_version(_version)
     else:
         stdout_message('You must enter a valid version (x.y.z)', prefix='WARN')
         sys.exit(1)
