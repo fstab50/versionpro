@@ -90,7 +90,7 @@ test-help:   ## Print runtime options for running pytest unittests
 .PHONY: build
 build: artifacts  ## Build dist, increment version || force version (VERSION=X.Y)
 	if [ $(VERSION) ]; then . $(VENV_DIR)/bin/activate && \
-	$(PYTHON3_PATH) $(SCRIPTS)/versionpro.py --set-version $(VERSION) --update; \
+	$(PYTHON3_PATH) $(SCRIPTS)/versionpro.py --force-set $(VERSION) --update; \
 	else . $(VENV_DIR)/bin/activate && \
 	$(PYTHON3_PATH) $(SCRIPTS)/versionpro.py --update; fi; \
 	. $(VENV_DIR)/bin/activate && cd $(CUR_DIR) && $(PYTHON3_PATH) setup.py sdist
