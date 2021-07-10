@@ -214,12 +214,15 @@ def pypi_registry(package_name):
 
     """
     installed_cmd = 'pip3 show {} 2>/dev/null'.format(package_name)
-    search_cmd = 'pip3 search {} 2>/dev/null'.format(package_name)
+    search_cmd = 'pip3 show {} | grep Version: 2>/dev/null'.format(package_name)
 
     try:
 
         r = subprocess.getoutput(search_cmd)
-        return r.split('-')[0].split('(')[1].split(')')[0].strip()
+        if 'WARNING' in r:
+            return ''
+        else:
+            return r.split(':')[1].strip()
 
     except Exception:
         return None
