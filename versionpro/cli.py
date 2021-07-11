@@ -219,10 +219,11 @@ def pypi_registry(package_name):
     try:
 
         r = subprocess.getoutput(search_cmd)
-        if 'WARNING' in r:
-            return ''
-        else:
+        if 'Version:' in r:
             return r.split(':')[1].strip()
+        else:
+            # package not found in pypi database
+            return ''
 
     except Exception:
         return None
