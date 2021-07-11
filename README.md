@@ -162,7 +162,7 @@ $ versionpro --version
 ```
 
 <p align="center">
-    <a href="http://images.awspros.world/versionpro/version-copyright.png" target="_blank"><img src="./assets/version-copyright.png">
+    <a href="http://images.awspros.world/versionpro/version-copyright_large.png" target="_blank"><img src="./assets/version-copyright.png">
 </p>
 
 [back to the top](#top)
