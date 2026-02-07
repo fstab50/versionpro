@@ -166,3 +166,4 @@ clean: clean-docs  ## Remove generic build artifacts common to most targets
 	rm -rf $(CUR_DIR)/docs/__pycache__ || true
 	rm -rf $(CUR_DIR)/.pytest_cache || true
 	rm -rf $(CUR_DIR)/build || true
+	rm -rf $(CUR_DIR)/scripts/__pycache__ || true
